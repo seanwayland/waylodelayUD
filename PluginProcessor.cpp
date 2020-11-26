@@ -80,8 +80,7 @@ WaylodelayUdAudioProcessor::WaylodelayUdAudioProcessor()
     
     
     
-    // mCircularBufferLeft = nullptr;
-    // mCircularBufferRight = nullptr;
+
     mCircularBufferWriteHead = 0;
     
     mCircularBufferLength = 0;
@@ -89,51 +88,44 @@ WaylodelayUdAudioProcessor::WaylodelayUdAudioProcessor()
     mDelayTimeInSamples = 0.0;
     mDelayReadHead = 0.0;
     
-    // mCircularBufferLeftTwo = nullptr;
-    //  mCircularBufferRightTwo = nullptr;
+
     mCircularBufferWriteHeadTwo = 0;
     
     mDelayTwoTimeInSamples = 0.0;
     mDelayTwoReadHead = 0.0;
     
-    //  mCircularBufferLeftThree = nullptr;
-    //  mCircularBufferRightThree = nullptr;
+
     mCircularBufferWriteHeadThree = 0;
     
     
     mDelayThreeTimeInSamples = 0.0;
     mDelayThreeReadHead = 0.0;
     
-    //  mCircularBufferLeftFour = nullptr;
-    //  mCircularBufferRightFour = nullptr;
+
     mCircularBufferWriteHeadFour = 0;
     
     mDelayFourTimeInSamples = 0.0;
     mDelayFourReadHead = 0.0;
     
-    //  mCircularBufferLeftFive = nullptr;
-    //  mCircularBufferRightFive = nullptr;
+
     mCircularBufferWriteHeadFive = 0;
     
     mDelayFiveTimeInSamples = 0.0;
     mDelayFiveReadHead = 0.0;
     
-    //  mCircularBufferLeftSix = nullptr;
-    //  mCircularBufferRightSix = nullptr;
+
     mCircularBufferWriteHeadSix = 0;
     
     mDelaySixTimeInSamples = 0.0;
     mDelaySixReadHead = 0.0;
     
-    //  mCircularBufferLeftSeven = nullptr;
-    //  mCircularBufferRightSeven = nullptr;
+
     mCircularBufferWriteHeadSeven = 0;
     
     mDelaySevenTimeInSamples = 0.0;
     mDelaySevenReadHead = 0.0;
     
-    //  mCircularBufferLeftEight = nullptr;
-    //  mCircularBufferRightEight = nullptr;
+
     mCircularBufferWriteHeadEight = 0;
     
     mDelayEightTimeInSamples = 0.0;
@@ -301,162 +293,7 @@ void WaylodelayUdAudioProcessor::prepareToPlay (double sampleRate, int samplesPe
     
     
     
-    
-    // Use this method as the place to do any pre-playback
-    // initialisation that you need..
-    
-    /***
-     if (mCircularBufferLeft != nullptr ) {
-     delete [] mCircularBufferLeft;
-     mCircularBufferLeft = nullptr;
-     }
-     
-     if (mCircularBufferLeft == nullptr ) {
-     mCircularBufferLeft = new float[mCircularBufferLength];
-     }
-     
-     if (mCircularBufferRight != nullptr ) {
-     delete [] mCircularBufferRight;
-     mCircularBufferRight = nullptr;
-     }
-     
-     if (mCircularBufferRight == nullptr ) {
-     mCircularBufferRight = new float[mCircularBufferLength];
-     }
-     
-     if (mCircularBufferLeftTwo != nullptr ) {
-     delete [] mCircularBufferLeftTwo;
-     mCircularBufferLeftTwo = nullptr;
-     }
-     
-     if (mCircularBufferLeftTwo == nullptr ) {
-     mCircularBufferLeftTwo = new float[mCircularBufferLength];
-     }
-     
-     if (mCircularBufferRightTwo != nullptr ) {
-     delete [] mCircularBufferRightTwo;
-     mCircularBufferRightTwo = nullptr;
-     }
-     
-     if (mCircularBufferRightTwo == nullptr ) {
-     mCircularBufferRightTwo = new float[mCircularBufferLength];
-     }
-     
-     if (mCircularBufferLeftThree != nullptr ) {
-     delete [] mCircularBufferLeftThree;
-     mCircularBufferLeftThree = nullptr;
-     }
-     
-     if (mCircularBufferLeftThree == nullptr ) {
-     mCircularBufferLeftThree = new float[mCircularBufferLength];
-     }
-     
-     if (mCircularBufferRightThree != nullptr ) {
-     delete [] mCircularBufferRightThree;
-     mCircularBufferRightThree = nullptr;
-     }
-     
-     if (mCircularBufferRightThree == nullptr ) {
-     mCircularBufferRightThree = new float[mCircularBufferLength];
-     }
-     
-     
-     if (mCircularBufferLeftFour != nullptr ) {
-     delete [] mCircularBufferLeftFour;
-     mCircularBufferLeftFour = nullptr;
-     }
-     
-     if (mCircularBufferLeftFour == nullptr ) {
-     mCircularBufferLeftFour = new float[mCircularBufferLength];
-     }
-     
-     if (mCircularBufferRightFour != nullptr ) {
-     delete [] mCircularBufferRightFour;
-     mCircularBufferRightFour = nullptr;
-     }
-     
-     if (mCircularBufferRightFour == nullptr ) {
-     mCircularBufferRightFour = new float[mCircularBufferLength];
-     }
-     
-     if (mCircularBufferLeftFive != nullptr ) {
-     delete [] mCircularBufferLeftFive;
-     mCircularBufferLeftFive = nullptr;
-     }
-     
-     if (mCircularBufferLeftFive == nullptr ) {
-     mCircularBufferLeftFive = new float[mCircularBufferLength];
-     }
-     
-     if (mCircularBufferRightFive != nullptr ) {
-     delete [] mCircularBufferRightFive;
-     mCircularBufferRightFive = nullptr;
-     }
-     
-     if (mCircularBufferRightFive == nullptr ) {
-     mCircularBufferRightFive = new float[mCircularBufferLength];
-     }
-     
-     if (mCircularBufferLeftSix != nullptr ) {
-     delete [] mCircularBufferLeftSix;
-     mCircularBufferLeftSix = nullptr;
-     }
-     
-     if (mCircularBufferLeftSix == nullptr ) {
-     mCircularBufferLeftSix = new float[mCircularBufferLength];
-     }
-     
-     if (mCircularBufferRightSix != nullptr ) {
-     delete [] mCircularBufferRightSix;
-     mCircularBufferRightSix = nullptr;
-     }
-     
-     if (mCircularBufferRightSix == nullptr ) {
-     mCircularBufferRightSix = new float[mCircularBufferLength];
-     }
-     
-     
-     
-     if (mCircularBufferLeftSeven != nullptr ) {
-     delete [] mCircularBufferLeftSeven;
-     mCircularBufferLeftSeven = nullptr;
-     }
-     
-     if (mCircularBufferLeftSeven == nullptr ) {
-     mCircularBufferLeftSeven = new float[mCircularBufferLength];
-     }
-     
-     if (mCircularBufferRightSeven != nullptr ) {
-     delete [] mCircularBufferRightSeven;
-     mCircularBufferRightSeven = nullptr;
-     }
-     
-     if (mCircularBufferRightSeven == nullptr ) {
-     mCircularBufferRightSeven = new float[mCircularBufferLength];
-     }
-     
-     
-     if (mCircularBufferLeftEight != nullptr ) {
-     delete [] mCircularBufferLeftEight;
-     mCircularBufferLeftEight = nullptr;
-     }
-     
-     if (mCircularBufferLeftEight == nullptr ) {
-     mCircularBufferLeftEight = new float[mCircularBufferLength];
-     }
-     
-     if (mCircularBufferRightEight != nullptr ) {
-     delete [] mCircularBufferRightEight;
-     mCircularBufferRightEight = nullptr;
-     }
-     
-     if (mCircularBufferRightEight == nullptr ) {
-     mCircularBufferRightEight = new float[mCircularBufferLength];
-     }
-     
-     **/
-    
-    
+
     
     
     
@@ -544,54 +381,13 @@ void WaylodelayUdAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
     
-    
-    /***
-     memset(mCircularBufferLeft, 0.0, mCircularBufferLength*sizeof(*mCircularBufferLeft));
-     memset(mCircularBufferRight, 0.0, mCircularBufferLength*sizeof(*mCircularBufferRight));
-     memset(mCircularBufferLeftTwo, 0.0, mCircularBufferLength*sizeof(*mCircularBufferLeftTwo));
-     memset(mCircularBufferRightTwo, 0.0, mCircularBufferLength*sizeof(*mCircularBufferRightTwo));
-     memset(mCircularBufferLeftThree, 0.0, mCircularBufferLength*sizeof(*mCircularBufferLeftThree));
-     memset(mCircularBufferRightThree, 0.0, mCircularBufferLength*sizeof(*mCircularBufferRightThree));
-     memset(mCircularBufferLeftFour, 0.0, mCircularBufferLength*sizeof(*mCircularBufferLeftFour));
-     memset(mCircularBufferRightFour, 0.0, mCircularBufferLength*sizeof(*mCircularBufferRightFour));
-     memset(mCircularBufferLeftFive, 0.0, mCircularBufferLength*sizeof(*mCircularBufferLeftFive));
-     memset(mCircularBufferRightFive, 0.0, mCircularBufferLength*sizeof(*mCircularBufferRightFive));
-     memset(mCircularBufferLeftSix, 0.0, mCircularBufferLength*sizeof(*mCircularBufferLeftSix));
-     memset(mCircularBufferRightSix, 0.0, mCircularBufferLength*sizeof(*mCircularBufferRightSix));
-     memset(mCircularBufferLeftSeven, 0.0, mCircularBufferLength*sizeof(*mCircularBufferLeftSeven));
-     memset(mCircularBufferRightSeven, 0.0, mCircularBufferLength*sizeof(*mCircularBufferRightSeven));
-     memset(mCircularBufferLeftEight, 0.0, mCircularBufferLength*sizeof(*mCircularBufferLeftEight));
-     memset(mCircularBufferRightEight, 0.0, mCircularBufferLength*sizeof(*mCircularBufferRightEight));
-     ***/
+
     
     int sr = int(getSampleRate());
     int md = int(MAX_DELAY_TIME);
     int bufferlength = 96000;
     
-    /***
-     float mCircularBufferRight[int(MAX_DELAY_TIME*getSampleRate())] = { 0 };
-     float mCircularBufferLeftTwo[int(MAX_DELAY_TIME*getSampleRate())] = { 0 };
-     float mCircularBufferRightTwo[int(MAX_DELAY_TIME*getSampleRate())] = { 0 };
-     float mCircularBufferLeftThree[int(MAX_DELAY_TIME*getSampleRate())] = { 0 };
-     float mCircularBufferRightThree[MAX_DELAY_TIME*getSampleRate()] = { 0 };
-     float mCircularBufferRightFour[MAX_DELAY_TIME*getSampleRate()] = { 0 };
-     float mCircularBufferRightFour[MAX_DELAY_TIME*getSampleRate()] = { 0 };
-     float mCircularBufferLeftFive[MAX_DELAY_TIME*getSampleRate()] = { 0 };
-     float mCircularBufferRightFive[MAX_DELAY_TIME*getSampleRate()] = { 0 };
-     float mCircularBufferLeftSix[MAX_DELAY_TIME*getSampleRate()] = { 0 };
-     float mCircularBufferRightSix[MAX_DELAY_TIME*getSampleRate()] = { 0 };
-     float mCircularBufferRightSeven[MAX_DELAY_TIME*getSampleRate()] = { 0 };
-     float mCircularBufferRightSeven[MAX_DELAY_TIME*getSampleRate()] = { 0 };
-     float mCircularBufferRightEight[MAX_DELAY_TIME*getSampleRate()] = { 0 };
-     float mCircularBufferRightEight[MAX_DELAY_TIME*getSampleRate()] = { 0 };
-     ***/
-    
-    
-    
-    
-    
-    
-    
+
     
     
     float* LeftChannel = buffer.getWritePointer(0);
@@ -668,14 +464,14 @@ void WaylodelayUdAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
         
         
         // convert -1 to 1 to changes in delay time of .005 min and .03 max
-        float lfoOutMapped = juce::jmap(lfoOut,-1.f,1.f,0.005f, 0.03f);
-        float lfoOutMappedTwo = juce::jmap(lfoOutTwo,-1.f,1.f,0.005f, 0.03f);
-        float lfoOutMappedThree = juce::jmap(lfoOutThree,-1.f,1.f,0.001f, 0.05f);
-        float lfoOutMappedFour = juce::jmap(lfoOutFour,-1.f,1.f,0.005f, 0.05f);
-        float lfoOutMappedFive = juce::jmap(lfoOutFive,-1.f,1.f,0.001f, 0.05f);
-        float lfoOutMappedSix = juce::jmap(lfoOutSix,-1.f,1.f,0.001f, 0.05f);
-        float lfoOutMappedSeven = juce::jmap(lfoOutSeven,-1.f,1.f,0.005f, 0.05f);
-        float lfoOutMappedEight = juce::jmap(lfoOutEight,-1.f,1.f,0.005f, 0.05f);
+        float lfoOutMapped = juce::jmap(lfoOut,-1.f,1.f,0.001f, 0.1f);
+        float lfoOutMappedTwo = juce::jmap(lfoOutTwo,-1.f,1.f,0.001f, 0.1f);
+        float lfoOutMappedThree = juce::jmap(lfoOutThree,-1.f,1.f,0.001f, 0.1f);
+        float lfoOutMappedFour = juce::jmap(lfoOutFour,-1.f,1.f,0.001f, 0.1f);
+        float lfoOutMappedFive = juce::jmap(lfoOutFive,-1.f,1.f,0.001f, 0.1f);
+        float lfoOutMappedSix = juce::jmap(lfoOutSix,-1.f,1.f,0.001f, 0.1f);
+        float lfoOutMappedSeven = juce::jmap(lfoOutSeven,-1.f,1.f,0.001f, 0.1f);
+        float lfoOutMappedEight = juce::jmap(lfoOutEight,-1.f,1.f,0.001f, 0.1f);
         
         
         
@@ -948,11 +744,7 @@ void WaylodelayUdAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
         
         
         
-        /***
-         buffer.setSample(0, i, buffer.getSample(0, i)* *mDryGainParameter + delay_sample_LeftTwo* *mDelayTwoGainParameter);
-         buffer.setSample(1, i, buffer.getSample(1, i)* *mDryGainParameter + delay_sample_Right* *mDelayOneGainParameter);
-         ***/
-        
+
         
         
         // increment the buffer write head
@@ -1074,7 +866,7 @@ void WaylodelayUdAudioProcessor::setStateInformation (const void* data, int size
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
     std::unique_ptr<juce::XmlElement> xml(getXmlFromBinary(data, sizeInBytes));
-    if (xml.get() != nullptr && xml->hasTagName("waylomoddelayUD"))
+    if (xml.get() != nullptr && xml->hasTagName("waylodelayUD"))
     {
         
         
