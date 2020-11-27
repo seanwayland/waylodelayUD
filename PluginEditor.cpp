@@ -28,10 +28,36 @@ WaylodelayUdAudioProcessorEditor::WaylodelayUdAudioProcessorEditor (WaylodelayUd
     
     addAndMakeVisible (delaySettings);
     delaySettings.setBounds(1000,50, 200,50);
-    delaySettings.addItem ("Waylo Chorus 1",  1);
-    delaySettings.addItem ("Waylo Chorus 2",   2);
-    delaySettings.addItem ("Legend Chorus 1", 3);
+    delaySettings.addItem ("011 legend chorus 1",  1);
+    delaySettings.addItem ("012 legend chorus 2",  2);
+    delaySettings.addItem ("013 legend chorus 3", 3);
+    delaySettings.addItem ("021 legend chorus 4",  4);
+    delaySettings.addItem ("022 legend chorus 5",  5);
+    delaySettings.addItem ("023 legend chorus 6", 6);
+    delaySettings.addItem ("031 legend chorus 7",  7);
+    delaySettings.addItem ("032 legend chorus 8",  8);
+    delaySettings.addItem ("033 legend chorus 9", 9);
+    delaySettings.addItem ("111 legend chorus 10",  10);
+    delaySettings.addItem ("112 legend chorus 11",  11);
+    delaySettings.addItem ("113 legend chorus 12", 12);
+    delaySettings.addItem ("121 legend lead solo 1",  13);
+    delaySettings.addItem ("122 legend lead solo 2",  14);
+    delaySettings.addItem ("123 legend lead solo 3", 15);
+    delaySettings.addItem ("131 legend lead solo 4",  16);
+    delaySettings.addItem ("132 legend lead solo 5",  17);
+    delaySettings.addItem ("133 legend lead solo 6", 18);
+    delaySettings.addItem ("211 legend lead solo 7",  19);
+    delaySettings.addItem ("212 legend lead solo 8",  20);
+    delaySettings.addItem ("213 legend lead solo 9", 21);
+    delaySettings.addItem ("221 legend swell FX 1",  22);
+    delaySettings.addItem ("222 legend swell FX 2",  23);
+    delaySettings.addItem ("223 legend point source plus echos", 24);
+    delaySettings.addItem ("231 legend echo 1 ",  25);
+    delaySettings.addItem ("232 legend echo 2",  26);
+    delaySettings.addItem ("233 legend echo 3", 27);
     delaySettings.setSelectedId (1);
+    
+    delaySettings.onChange = [this] { getPreset(); };
     
     
     
@@ -602,7 +628,7 @@ void WaylodelayUdAudioProcessorEditor::setSliders(){
     juce::AudioParameterFloat* delayOneModDpethParameter2 = (juce::AudioParameterFloat*)params.getUnchecked(3);
     mDelayOneModDepthSlider.setValue(*delayOneModDpethParameter2);
     juce::AudioParameterFloat* delayOneModRateParameter2 = (juce::AudioParameterFloat*)params.getUnchecked(4);
-    mDelayOneModDepthSlider.setValue(*delayOneModRateParameter2);
+    mDelayOneModRateSlider.setValue(*delayOneModRateParameter2);
     juce::AudioParameterFloat* delayOneFeedbackParameter2 = (juce::AudioParameterFloat*)params.getUnchecked(5);
     mDelayOneFeedbackSlider.setValue(*delayOneFeedbackParameter2);
     juce::AudioParameterFloat* delayTwoTimeParameter2 = (juce::AudioParameterFloat*)params.getUnchecked(6);
@@ -677,5 +703,62 @@ void WaylodelayUdAudioProcessorEditor::setSliders(){
     mDelayEightFeedbackSlider.setValue(*delayEightFeedbackParameter2);
     
     
-    
+}
+
+/***
+ float settingsArray [10][41] = {{0.7, 0.0236, 0.030, 0.0361, 0.0476, 0.3, 0.4, 0.341, 0.45, // dry gain plus delay times
+ 0.8,0.8, 0.8, 0.8, 0.5, 0.5, 0.5, 0.5, // delay gains
+ 0.1 , 0.1 , 0.1 , 0.1 , 0.1 , 0.1 ,0.1 ,0.1, // mod depths
+ 0.35, 0.4, 0.42 , 0.37, 0.35, 0.38, 0.47, 0.33, // mod rates
+ 0.0, 0.0, 0.0, 0.0, 0.45, 0.35, 0.43 , 0.34 // feedback levels
+ },
+ ***/
+
+     void WaylodelayUdAudioProcessorEditor::getPreset(){
+         auto& params = processor.getParameters();
+         int preset = delaySettings.getSelectedId();
+        // juce::AudioParameterFloat* dryGainParameter3 = (juce::AudioParameterFloat*)params.getUnchecked(1);
+         mDryGainSlider.setValue(settingsArray[preset][0]);
+         mDelayTimeSlider.setValue(settingsArray[preset][1]);
+         mDelayTwoTimeSlider.setValue(settingsArray[preset][2]);
+         mDelayThreeTimeSlider.setValue(settingsArray[preset][3]);
+         mDelayFourTimeSlider.setValue(settingsArray[preset][4]);
+         mDelayFiveTimeSlider.setValue(settingsArray[preset][5]);
+         mDelaySixTimeSlider.setValue(settingsArray[preset][6]);
+         mDelaySevenTimeSlider.setValue(settingsArray[preset][7]);
+         mDelayEightTimeSlider.setValue(settingsArray[preset][8]);
+         mDelayOneGainSlider.setValue(settingsArray[preset][9]);
+         mDelayTwoGainSlider.setValue(settingsArray[preset][10]);
+         mDelayThreeGainSlider.setValue(settingsArray[preset][11]);
+         mDelayFourGainSlider.setValue(settingsArray[preset][12]);
+         mDelayFiveGainSlider.setValue(settingsArray[preset][13]);
+         mDelaySixGainSlider.setValue(settingsArray[preset][14]);
+         mDelaySevenGainSlider.setValue(settingsArray[preset][15]);
+         mDelayEightGainSlider.setValue(settingsArray[preset][16]);
+         mDelayOneModDepthSlider.setValue(settingsArray[preset][17]);
+         mDelayTwoModDepthSlider.setValue(settingsArray[preset][18]);
+         mDelayThreeModDepthSlider.setValue(settingsArray[preset][19]);
+         mDelayFourModDepthSlider.setValue(settingsArray[preset][20]);
+         mDelayFiveModDepthSlider.setValue(settingsArray[preset][21]);
+         mDelaySixModDepthSlider.setValue(settingsArray[preset][22]);
+         mDelaySevenModDepthSlider.setValue(settingsArray[preset][23]);
+         mDelayEightModDepthSlider.setValue(settingsArray[preset][24]);
+         mDelayOneModRateSlider.setValue(settingsArray[preset][25]);
+         mDelayTwoModRateSlider.setValue(settingsArray[preset][26]);
+         mDelayThreeModRateSlider.setValue(settingsArray[preset][27]);
+         mDelayFourModRateSlider.setValue(settingsArray[preset][28]);
+         mDelayFiveModRateSlider.setValue(settingsArray[preset][29]);
+         mDelaySixModRateSlider.setValue(settingsArray[preset][30]);
+         mDelaySevenModRateSlider.setValue(settingsArray[preset][31]);
+         mDelayEightModRateSlider.setValue(settingsArray[preset][31]);
+         mDelayOneFeedbackSlider.setValue(settingsArray[preset][33]);
+         mDelayTwoFeedbackSlider.setValue(settingsArray[preset][34]);
+         mDelayThreeFeedbackSlider.setValue(settingsArray[preset][35]);
+         mDelayFourFeedbackSlider.setValue(settingsArray[preset][36]);
+         mDelayFiveFeedbackSlider.setValue(settingsArray[preset][37]);
+         mDelaySixFeedbackSlider.setValue(settingsArray[preset][38]);
+         mDelaySevenFeedbackSlider.setValue(settingsArray[preset][39]);
+         mDelayEightFeedbackSlider.setValue(settingsArray[preset][40]);
+
+         
 }
