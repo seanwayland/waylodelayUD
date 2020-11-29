@@ -61,6 +61,8 @@ WaylodelayUdAudioProcessorEditor::WaylodelayUdAudioProcessorEditor (WaylodelayUd
     delaySettings.addItem ("231 legend echo 1 ",  25);
     delaySettings.addItem ("232 legend echo 2",  26);
     delaySettings.addItem ("233 legend echo 3", 27);
+    delaySettings.addItem ("Waylochorus 1", 28);
+    delaySettings.addItem ("Waylolead 1", 29);
     delaySettings.setSelectedId (1);
     
     delaySettings.onChange = [this] { getPreset(); };
@@ -77,7 +79,7 @@ WaylodelayUdAudioProcessorEditor::WaylodelayUdAudioProcessorEditor (WaylodelayUd
     
     juce::AudioParameterFloat* delayTimeParameter = (juce::AudioParameterFloat*)params.getUnchecked(0);
     mDelayTimeSlider.setBounds(150, 80 , 150, 150);
-    timeLabel.setBounds(25,50,200,200);
+    timeLabel.setBounds(10,50,200,200);
     timeLabel.setText("Delay Time", juce::dontSendNotification);
     timeLabel.setColour (juce::Label::textColourId, juce::Colours::lightgreen);
     addAndMakeVisible (timeLabel);
@@ -118,7 +120,7 @@ WaylodelayUdAudioProcessorEditor::WaylodelayUdAudioProcessorEditor (WaylodelayUd
     
     juce::AudioParameterFloat* delayOneGainParameter = (juce::AudioParameterFloat*)params.getUnchecked(2);
     mDelayOneGainSlider.setBounds(150, 160 , 150, 150);
-    delayGainLabel.setBounds(25,130,200,200);
+    delayGainLabel.setBounds(10,130,200,200);
     delayGainLabel.setText("Delay Gain", juce::dontSendNotification);
     delayGainLabel.setColour (juce::Label::textColourId, juce::Colours::lightgreen);
     addAndMakeVisible(delayGainLabel);
@@ -134,7 +136,7 @@ WaylodelayUdAudioProcessorEditor::WaylodelayUdAudioProcessorEditor (WaylodelayUd
     juce::AudioParameterFloat* delayOneModDpethParameter = (juce::AudioParameterFloat*)params.getUnchecked(3);
     mDelayOneModDepthSlider.setBounds(150, 240 , 150, 150);
     
-    depthLabel.setBounds(25,210,200,200);
+    depthLabel.setBounds(10,210,200,200);
     depthLabel.setText("Mod Depth", juce::dontSendNotification);
     depthLabel.setColour (juce::Label::textColourId, juce::Colours::lightgreen);
     addAndMakeVisible(depthLabel);
@@ -153,7 +155,7 @@ WaylodelayUdAudioProcessorEditor::WaylodelayUdAudioProcessorEditor (WaylodelayUd
     
     juce::AudioParameterFloat* delayOneModRateParameter = (juce::AudioParameterFloat*)params.getUnchecked(4);
     mDelayOneModRateSlider.setBounds(150, 320 , 150, 150);
-    RateLabel.setBounds(25,290,200,200);
+    RateLabel.setBounds(10,290,200,200);
     RateLabel.setText("Mod Rate", juce::dontSendNotification);
     RateLabel.setColour (juce::Label::textColourId, juce::Colours::lightgreen);
     addAndMakeVisible(RateLabel);
@@ -168,7 +170,7 @@ WaylodelayUdAudioProcessorEditor::WaylodelayUdAudioProcessorEditor (WaylodelayUd
     
     juce::AudioParameterFloat* delayOneFeedbackParameter = (juce::AudioParameterFloat*)params.getUnchecked(5);
     mDelayOneFeedbackSlider.setBounds(150, 400 , 150, 150);
-    FeedbackLabel.setBounds(25,370,200,200);
+    FeedbackLabel.setBounds(10,370,200,200);
     FeedbackLabel.setText("Feedback", juce::dontSendNotification);
     FeedbackLabel.setColour (juce::Label::textColourId, juce::Colours::lightgreen);
     addAndMakeVisible(FeedbackLabel);

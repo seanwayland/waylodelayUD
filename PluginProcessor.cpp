@@ -1,10 +1,10 @@
 /*
-  ==============================================================================
-
-    This file contains the basic framework code for a JUCE plugin processor.
-
-  ==============================================================================
-*/
+ ==============================================================================
+ 
+ This file contains the basic framework code for a JUCE plugin processor.
+ 
+ ==============================================================================
+ */
 
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
@@ -12,14 +12,14 @@
 //==============================================================================
 WaylodelayUdAudioProcessor::WaylodelayUdAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
-     : AudioProcessor (BusesProperties()
-                     #if ! JucePlugin_IsMidiEffect
-                      #if ! JucePlugin_IsSynth
-                       .withInput  ("Input",  juce::AudioChannelSet::stereo(), true)
-                      #endif
-                       .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
-                     #endif
-                       )
+: AudioProcessor (BusesProperties()
+#if ! JucePlugin_IsMidiEffect
+#if ! JucePlugin_IsSynth
+                  .withInput  ("Input",  juce::AudioChannelSet::stereo(), true)
+#endif
+                  .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
+#endif
+                  )
 #endif
 {
     
@@ -31,7 +31,7 @@ WaylodelayUdAudioProcessor::WaylodelayUdAudioProcessor()
      0.0, 0.0, 0.0, 0.0, 0.45, 0.35, 0.43 , 0.34 // feedback levels
      },
      ***/
-
+    
     
     addParameter(mDelayOneTimeParameter = new juce::AudioParameterFloat("delay one delaytime", "Delay One Delay Time", juce::NormalisableRange<float> (0.0f, 1.0f), 0.0236f));
     //addParameter(mDryGainParameter = new juce::AudioParameterFloat("drygain", "Dry Gain", 0.0f, 1.0f , 0.5f));
@@ -90,7 +90,7 @@ WaylodelayUdAudioProcessor::WaylodelayUdAudioProcessor()
     
     
     
-
+    
     mCircularBufferWriteHead = 0;
     
     mCircularBufferLength = 0;
@@ -98,44 +98,44 @@ WaylodelayUdAudioProcessor::WaylodelayUdAudioProcessor()
     mDelayTimeInSamples = 0.0;
     mDelayReadHead = 0.0;
     
-
+    
     mCircularBufferWriteHeadTwo = 0;
     
     mDelayTwoTimeInSamples = 0.0;
     mDelayTwoReadHead = 0.0;
     
-
+    
     mCircularBufferWriteHeadThree = 0;
     
     
     mDelayThreeTimeInSamples = 0.0;
     mDelayThreeReadHead = 0.0;
     
-
+    
     mCircularBufferWriteHeadFour = 0;
     
     mDelayFourTimeInSamples = 0.0;
     mDelayFourReadHead = 0.0;
     
-
+    
     mCircularBufferWriteHeadFive = 0;
     
     mDelayFiveTimeInSamples = 0.0;
     mDelayFiveReadHead = 0.0;
     
-
+    
     mCircularBufferWriteHeadSix = 0;
     
     mDelaySixTimeInSamples = 0.0;
     mDelaySixReadHead = 0.0;
     
-
+    
     mCircularBufferWriteHeadSeven = 0;
     
     mDelaySevenTimeInSamples = 0.0;
     mDelaySevenReadHead = 0.0;
     
-
+    
     mCircularBufferWriteHeadEight = 0;
     
     mDelayEightTimeInSamples = 0.0;
@@ -210,29 +210,29 @@ const juce::String WaylodelayUdAudioProcessor::getName() const
 
 bool WaylodelayUdAudioProcessor::acceptsMidi() const
 {
-   #if JucePlugin_WantsMidiInput
+#if JucePlugin_WantsMidiInput
     return true;
-   #else
+#else
     return false;
-   #endif
+#endif
 }
 
 bool WaylodelayUdAudioProcessor::producesMidi() const
 {
-   #if JucePlugin_ProducesMidiOutput
+#if JucePlugin_ProducesMidiOutput
     return true;
-   #else
+#else
     return false;
-   #endif
+#endif
 }
 
 bool WaylodelayUdAudioProcessor::isMidiEffect() const
 {
-   #if JucePlugin_IsMidiEffect
+#if JucePlugin_IsMidiEffect
     return true;
-   #else
+#else
     return false;
-   #endif
+#endif
 }
 
 double WaylodelayUdAudioProcessor::getTailLengthSeconds() const
@@ -243,7 +243,7 @@ double WaylodelayUdAudioProcessor::getTailLengthSeconds() const
 int WaylodelayUdAudioProcessor::getNumPrograms()
 {
     return 1;   // NB: some hosts don't cope very well if you tell them there are 0 programs,
-                // so this should be at least 1, even if you're not really implementing programs.
+    // so this should be at least 1, even if you're not really implementing programs.
 }
 
 int WaylodelayUdAudioProcessor::getCurrentProgram()
@@ -303,7 +303,7 @@ void WaylodelayUdAudioProcessor::prepareToPlay (double sampleRate, int samplesPe
     
     
     
-
+    
     
     
     
@@ -355,24 +355,24 @@ void WaylodelayUdAudioProcessor::releaseResources()
 #ifndef JucePlugin_PreferredChannelConfigurations
 bool WaylodelayUdAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
 {
-  #if JucePlugin_IsMidiEffect
+#if JucePlugin_IsMidiEffect
     juce::ignoreUnused (layouts);
     return true;
-  #else
+#else
     // This is the place where you check if the layout is supported.
     // In this template code we only support mono or stereo.
     if (layouts.getMainOutputChannelSet() != juce::AudioChannelSet::mono()
-     && layouts.getMainOutputChannelSet() != juce::AudioChannelSet::stereo())
+        && layouts.getMainOutputChannelSet() != juce::AudioChannelSet::stereo())
         return false;
-
+    
     // This checks if the input layout matches the output layout
-   #if ! JucePlugin_IsSynth
+#if ! JucePlugin_IsSynth
     if (layouts.getMainOutputChannelSet() != layouts.getMainInputChannelSet())
         return false;
-   #endif
-
+#endif
+    
     return true;
-  #endif
+#endif
 }
 #endif
 
@@ -391,13 +391,13 @@ void WaylodelayUdAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
     
-
+    
     
     int sr = int(getSampleRate());
     int md = int(MAX_DELAY_TIME);
     int bufferlength = 96000;
     
-
+    
     
     
     float* LeftChannel = buffer.getWritePointer(0);
@@ -473,7 +473,7 @@ void WaylodelayUdAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
         lfoOutEight *= *mDelayEightModDepthParameter;
         
         
-        // convert -1 to 1 to changes in delay time of .005 min and .03 max
+        //convert -1 to 1 to changes in delay time of .005 min and .03 max
         float lfoOutMapped = juce::jmap(lfoOut,-1.f,1.f,0.001f, 0.1f);
         float lfoOutMappedTwo = juce::jmap(lfoOutTwo,-1.f,1.f,0.001f, 0.1f);
         float lfoOutMappedThree = juce::jmap(lfoOutThree,-1.f,1.f,0.001f, 0.1f);
@@ -482,10 +482,23 @@ void WaylodelayUdAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
         float lfoOutMappedSix = juce::jmap(lfoOutSix,-1.f,1.f,0.001f, 0.1f);
         float lfoOutMappedSeven = juce::jmap(lfoOutSeven,-1.f,1.f,0.001f, 0.1f);
         float lfoOutMappedEight = juce::jmap(lfoOutEight,-1.f,1.f,0.001f, 0.1f);
+         
+        
+        
+        /***
+         float lfoOutMapped = juce::jmap(lfoOut,-1.f,1.f,-0.1f, 0.1f);
+         float lfoOutMappedTwo = juce::jmap(lfoOutTwo,-1.f,1.f,-0.1f, 0.1f);
+         float lfoOutMappedThree = juce::jmap(lfoOutThree,-1.f,1.f,-0.1f, 0.1f);
+         float lfoOutMappedFour = juce::jmap(lfoOutFour,-1.f,1.f,-0.1f, 0.1f);
+         float lfoOutMappedFive = juce::jmap(lfoOutFive,-1.f,1.f,-0.1f, 0.1f);
+         float lfoOutMappedSix = juce::jmap(lfoOutSix,-1.f,1.f,-0.1f, 0.1f);
+         float lfoOutMappedSeven = juce::jmap(lfoOutSeven,-1.f,1.f,-0.1f, 0.1f);
+         float lfoOutMappedEight = juce::jmap(lfoOutEight,-1.f,1.f,-0.1f, 0.1f);
+         ***/
         
         
         
-        // smoothly change the dely time
+        //smoothly change the dely time
         mDelayTimeSmoothed = mDelayTimeSmoothed - 0.001*(mDelayTimeSmoothed - lfoOutMapped);
         mDelayTimeSmoothedTwo = mDelayTimeSmoothedTwo - 0.001*(mDelayTimeSmoothedTwo - lfoOutMappedTwo);
         mDelayTimeSmoothedThree = mDelayTimeSmoothedThree - 0.001*(mDelayTimeSmoothedThree - lfoOutMappedThree);
@@ -494,6 +507,17 @@ void WaylodelayUdAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
         mDelayTimeSmoothedSix = mDelayTimeSmoothedSix - 0.001*(mDelayTimeSmoothedSix - lfoOutMappedSix);
         mDelayTimeSmoothedSeven = mDelayTimeSmoothedSeven - 0.001*(mDelayTimeSmoothedSeven - lfoOutMappedSeven);
         mDelayTimeSmoothedEight = mDelayTimeSmoothedEight - 0.001*(mDelayTimeSmoothedEight - lfoOutMappedEight);
+        
+        /***
+        mDelayTimeSmoothed = mDelayTimeSmoothed - lfoOutMapped;
+        mDelayTimeSmoothedTwo = mDelayTimeSmoothedTwo - lfoOutMappedTwo;
+        mDelayTimeSmoothedThree = mDelayTimeSmoothedThree - lfoOutMappedThree;
+        mDelayTimeSmoothedFour = mDelayTimeSmoothedFour - lfoOutMappedFour;
+        mDelayTimeSmoothedFive = mDelayTimeSmoothedFive - lfoOutMappedFive;
+        mDelayTimeSmoothedSix = mDelayTimeSmoothedSix - lfoOutMappedSix;
+        mDelayTimeSmoothedSeven = mDelayTimeSmoothedSeven - lfoOutMappedSeven;
+        mDelayTimeSmoothedEight =mDelayTimeSmoothedEight - lfoOutMappedEight;
+         ***/
         
         
         
@@ -754,7 +778,7 @@ void WaylodelayUdAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
         
         
         
-
+        
         
         
         // increment the buffer write head
@@ -926,7 +950,7 @@ void WaylodelayUdAudioProcessor::setStateInformation (const void* data, int size
         *mDelaySevenGainParameter = xml->getDoubleAttribute("delaysevengain");
         *mDelaySevenModDepthParameter = xml->getDoubleAttribute("delaysevendepth");
         *mDelaySevenModRateParameter = xml->getDoubleAttribute("delaysevenrate");
-        *mDelayOneFeedbackParameter = xml->getDoubleAttribute("delaysevenfeedback");
+        *mDelaySevenFeedbackParameter = xml->getDoubleAttribute("delaysevenfeedback");
         
         *mDelayEightTimeParameter = xml->getDoubleAttribute("delayeighttime");
         *mDelayEightGainParameter = xml->getDoubleAttribute("delayeightgain");
