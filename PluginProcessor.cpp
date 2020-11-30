@@ -474,15 +474,17 @@ void WaylodelayUdAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
         
         
         //convert -1 to 1 to changes in delay time of .005 min and .03 max
-        float lfoOutMapped = juce::jmap(lfoOut,-1.f,1.f,0.001f, 0.1f);
-        float lfoOutMappedTwo = juce::jmap(lfoOutTwo,-1.f,1.f,0.001f, 0.1f);
-        float lfoOutMappedThree = juce::jmap(lfoOutThree,-1.f,1.f,0.001f, 0.1f);
-        float lfoOutMappedFour = juce::jmap(lfoOutFour,-1.f,1.f,0.001f, 0.1f);
-        float lfoOutMappedFive = juce::jmap(lfoOutFive,-1.f,1.f,0.001f, 0.1f);
-        float lfoOutMappedSix = juce::jmap(lfoOutSix,-1.f,1.f,0.001f, 0.1f);
-        float lfoOutMappedSeven = juce::jmap(lfoOutSeven,-1.f,1.f,0.001f, 0.1f);
-        float lfoOutMappedEight = juce::jmap(lfoOutEight,-1.f,1.f,0.001f, 0.1f);
-         
+        
+        float lfoOutMapped = juce::jmap(lfoOut,-1.f,1.f,0.001f, 0.08f);
+        float lfoOutMappedTwo = juce::jmap(lfoOutTwo,-1.f,1.f,0.001f, 0.08f);
+        float lfoOutMappedThree = juce::jmap(lfoOutThree,-1.f,1.f,0.001f, 0.08f);
+        float lfoOutMappedFour = juce::jmap(lfoOutFour,-1.f,1.f,0.001f, 0.08f);
+        float lfoOutMappedFive = juce::jmap(lfoOutFive,-1.f,1.f,0.001f, 0.08f);
+        float lfoOutMappedSix = juce::jmap(lfoOutSix,-1.f,1.f,0.001f, 0.08f);
+        float lfoOutMappedSeven = juce::jmap(lfoOutSeven,-1.f,1.f,0.001f, 0.08f);
+        float lfoOutMappedEight = juce::jmap(lfoOutEight,-1.f,1.f,0.001f, 0.08f);
+        
+        
         
         
         /***
@@ -499,24 +501,26 @@ void WaylodelayUdAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
         
         
         //smoothly change the dely time
-        mDelayTimeSmoothed = mDelayTimeSmoothed - 0.001*(mDelayTimeSmoothed - lfoOutMapped);
-        mDelayTimeSmoothedTwo = mDelayTimeSmoothedTwo - 0.001*(mDelayTimeSmoothedTwo - lfoOutMappedTwo);
-        mDelayTimeSmoothedThree = mDelayTimeSmoothedThree - 0.001*(mDelayTimeSmoothedThree - lfoOutMappedThree);
-        mDelayTimeSmoothedFour = mDelayTimeSmoothedFour - 0.001*(mDelayTimeSmoothedFour - lfoOutMappedFour);
-        mDelayTimeSmoothedFive = mDelayTimeSmoothedFive - 0.001*(mDelayTimeSmoothedFive - lfoOutMappedFive);
-        mDelayTimeSmoothedSix = mDelayTimeSmoothedSix - 0.001*(mDelayTimeSmoothedSix - lfoOutMappedSix);
-        mDelayTimeSmoothedSeven = mDelayTimeSmoothedSeven - 0.001*(mDelayTimeSmoothedSeven - lfoOutMappedSeven);
-        mDelayTimeSmoothedEight = mDelayTimeSmoothedEight - 0.001*(mDelayTimeSmoothedEight - lfoOutMappedEight);
+        /**
+        mDelayTimeSmoothed = mDelayTimeSmoothed - 0.1*(mDelayTimeSmoothed - lfoOutMapped);
+        mDelayTimeSmoothedTwo = mDelayTimeSmoothedTwo - 0.1*(mDelayTimeSmoothedTwo - lfoOutMappedTwo);
+        mDelayTimeSmoothedThree = mDelayTimeSmoothedThree - 0.1*(mDelayTimeSmoothedThree - lfoOutMappedThree);
+        mDelayTimeSmoothedFour = mDelayTimeSmoothedFour - 0.1*(mDelayTimeSmoothedFour - lfoOutMappedFour);
+        mDelayTimeSmoothedFive = mDelayTimeSmoothedFive - 0.1*(mDelayTimeSmoothedFive - lfoOutMappedFive);
+        mDelayTimeSmoothedSix = mDelayTimeSmoothedSix - 0.1*(mDelayTimeSmoothedSix - lfoOutMappedSix);
+        mDelayTimeSmoothedSeven = mDelayTimeSmoothedSeven - 0.1*(mDelayTimeSmoothedSeven - lfoOutMappedSeven);
+        mDelayTimeSmoothedEight = mDelayTimeSmoothedEight - 0.1*(mDelayTimeSmoothedEight - lfoOutMappedEight);
+        **/
         
         /***
-        mDelayTimeSmoothed = mDelayTimeSmoothed - lfoOutMapped;
-        mDelayTimeSmoothedTwo = mDelayTimeSmoothedTwo - lfoOutMappedTwo;
-        mDelayTimeSmoothedThree = mDelayTimeSmoothedThree - lfoOutMappedThree;
-        mDelayTimeSmoothedFour = mDelayTimeSmoothedFour - lfoOutMappedFour;
-        mDelayTimeSmoothedFive = mDelayTimeSmoothedFive - lfoOutMappedFive;
-        mDelayTimeSmoothedSix = mDelayTimeSmoothedSix - lfoOutMappedSix;
-        mDelayTimeSmoothedSeven = mDelayTimeSmoothedSeven - lfoOutMappedSeven;
-        mDelayTimeSmoothedEight =mDelayTimeSmoothedEight - lfoOutMappedEight;
+         mDelayTimeSmoothed = mDelayTimeSmoothed - lfoOutMapped;
+         mDelayTimeSmoothedTwo = mDelayTimeSmoothedTwo - lfoOutMappedTwo;
+         mDelayTimeSmoothedThree = mDelayTimeSmoothedThree - lfoOutMappedThree;
+         mDelayTimeSmoothedFour = mDelayTimeSmoothedFour - lfoOutMappedFour;
+         mDelayTimeSmoothedFive = mDelayTimeSmoothedFive - lfoOutMappedFive;
+         mDelayTimeSmoothedSix = mDelayTimeSmoothedSix - lfoOutMappedSix;
+         mDelayTimeSmoothedSeven = mDelayTimeSmoothedSeven - lfoOutMappedSeven;
+         mDelayTimeSmoothedEight =mDelayTimeSmoothedEight - lfoOutMappedEight;
          ***/
         
         
@@ -532,7 +536,7 @@ void WaylodelayUdAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
         int dtimeEight = static_cast<int>(*mDelayEightTimeParameter*getSampleRate());
         
         
-        // add the modulated delay time to the value the delay time is set to with the slider
+        /* add the modulated delay time to the value the delay time is set to with the slider
         mDelayTimeInSamples = dtime + getSampleRate() * mDelayTimeSmoothed ;
         mDelayTwoTimeInSamples = dtimeTwo + getSampleRate() * mDelayTimeSmoothedTwo ;
         mDelayThreeTimeInSamples = dtimeThree + getSampleRate() * mDelayTimeSmoothedThree ;
@@ -541,6 +545,18 @@ void WaylodelayUdAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
         mDelaySixTimeInSamples = dtimeSix + getSampleRate() * mDelayTimeSmoothedSix ;
         mDelaySevenTimeInSamples = dtimeSeven + getSampleRate() * mDelayTimeSmoothedSeven ;
         mDelayEightTimeInSamples = dtimeEight + getSampleRate() * mDelayTimeSmoothedEight ;
+         */
+        
+        mDelayTimeInSamples = dtime*(1+ lfoOutMapped) ;
+        mDelayTwoTimeInSamples = dtimeTwo*(1+ lfoOutMappedTwo);
+        mDelayThreeTimeInSamples = dtimeThree*(1+ lfoOutMappedThree);
+        mDelayFourTimeInSamples = dtimeFour*(1+ lfoOutMappedFour) ;
+        mDelayFiveTimeInSamples = dtimeFive*(1+ lfoOutMappedFive) ;
+        mDelaySixTimeInSamples = dtimeSix*(1+ lfoOutMappedSix);
+        mDelaySevenTimeInSamples = dtimeSeven*(1+ lfoOutMappedSeven);
+        mDelayEightTimeInSamples = dtimeEight*(1+ lfoOutMappedEight) ;
+        
+        
         
         
         
