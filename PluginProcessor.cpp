@@ -114,7 +114,7 @@ WaylodelayUdAudioProcessor::WaylodelayUdAudioProcessor()
     
     mCircularBufferWriteHead = 0;
     
-    mCircularBufferLength = 0;
+    //mCircularBufferLength = 0;
     
     mDelayTimeInSamples = 0.0;
     mDelayReadHead = 0.0;
@@ -321,46 +321,24 @@ void WaylodelayUdAudioProcessor::prepareToPlay (double sampleRate, int samplesPe
     // initialisation that you need..
     // mCircularBufferLength = sampleRate*MAX_DELAY_TIME;
     mCircularBufferLength = 96000;
-    
-    
-    
-    
-    
-    
-    
-    
     mCircularBufferWriteHead = 0;
-    
-    mDelayTimeSmoothed = 0.5;
     mCircularBufferWriteHeadTwo = 0;
-    mDelayTimeSmoothedTwo = 0.5;
-    
     mCircularBufferWriteHeadThree = 0;
-    mDelayTimeSmoothedThree = 0.5;
-    
     mCircularBufferWriteHeadFour = 0;
-    mDelayTimeSmoothedFour = 0.5;
-    
     mCircularBufferWriteHeadFive = 0;
-    mDelayTimeSmoothedFive = 0.5;
-    
     mCircularBufferWriteHeadSix = 0;
-    mDelayTimeSmoothedSix = 0.5;
-    
     mCircularBufferWriteHeadSeven = 0;
-    mDelayTimeSmoothedSeven = 0.5;
-    
     mCircularBufferWriteHeadEight = 0;
-    mDelayTimeSmoothedEight = 0.5;
+
     
-    mDelayReadHead = 0;
-    mDelayTwoReadHead = 0;
-    mDelayThreeReadHead = 0;
-    mDelayFourReadHead =0;
-    mDelayFiveReadHead =0;
-    mDelaySixReadHead =0;
-    mDelaySevenReadHead =0;
-    mDelayEightReadHead =0;
+    mDelayReadHead = 0.0;
+    mDelayTwoReadHead = 0.0;
+    mDelayThreeReadHead = 0.0;
+    mDelayFourReadHead =0.0;
+    mDelayFiveReadHead =0.0;
+    mDelaySixReadHead =0.0;
+    mDelaySevenReadHead =0.0;
+    mDelayEightReadHead =0.0;
     
     
     
@@ -413,12 +391,7 @@ void WaylodelayUdAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
         buffer.clear (i, 0, buffer.getNumSamples());
     
     
-    
-    int sr = int(getSampleRate());
-    int md = int(MAX_DELAY_TIME);
-    int bufferlength = 96000;
-    
-    
+
     
     
     float* LeftChannel = buffer.getWritePointer(0);
@@ -533,8 +506,6 @@ void WaylodelayUdAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
         mDelaySixTimeInSamples = dtimeSix*(1+ lfoOutMappedSix);
         mDelaySevenTimeInSamples = dtimeSeven*(1+ lfoOutMappedSeven);
         mDelayEightTimeInSamples = dtimeEight*(1+ lfoOutMappedEight) ;
-        
-        
         
         
         
