@@ -23,39 +23,12 @@ WaylodelayUdAudioProcessor::WaylodelayUdAudioProcessor()
 #endif
 {
     
-    /**
-     {0.5, 0.0236, 0.030, 0.0361, 0.0476, 0.3, 0.4, 0.341, 0.45, // dry gain plus delay times
-     0.8,0.8, 0.8, 0.8, 0.5, 0.5, 0.5, 0.5, // delay gains
-     0.1 , 0.1 , 0.1 , 0.1 , 0.1 , 0.1 ,0.1 ,0.1, // mod depths
-     0.35, 0.4, 0.42 , 0.37, 0.35, 0.38, 0.47, 0.33, // mod rates
-     0.0, 0.0, 0.0, 0.0, 0.45, 0.35, 0.43 , 0.34 // feedback levels
-     },
-     ***/
     
-    
-    /***
-     TutorialProcessor()
-     : parameters (*this, nullptr, juce::Identifier ("APVTSTutorial"),
-     {
-     std::make_unique<juce::AudioParameterFloat> ("gain",            // parameterID
-     "Gain",            // parameter name
-     0.0f,              // minimum value
-     1.0f,              // maximum value
-     0.5f),             // default value
-     std::make_unique<juce::AudioParameterBool> ("invertPhase",      // parameterID
-     "Invert Phase",     // parameter name
-     false)              // default value
-     })
-     {
-     phaseParameter = parameters.getRawParameterValue ("invertPhase");
-     gainParameter  = parameters.getRawParameterValue ("gain");
-     }
-
-     ***/
+    // DECLARE PLUGIN PARAMETERS
     
     
     addParameter(mDelayOneTimeParameter = new juce::AudioParameterFloat("delay one delaytime", "Delay One Delay Time", juce::NormalisableRange<float> (0.0f, 1.0f), 0.0236f));
-    //addParameter(mDryGainParameter = new juce::AudioParameterFloat("drygain", "Dry Gain", 0.0f, 1.0f , 0.5f));
+
     addParameter (mDryGainParameter = new juce::AudioParameterFloat ("gain",                                      // parameter ID
                                                                      "Gain",                                      // parameter name
                                                                      juce::NormalisableRange<float> (0.0f, 1.0f), // parameter range
@@ -109,113 +82,24 @@ WaylodelayUdAudioProcessor::WaylodelayUdAudioProcessor()
     
     
     
+    // initialize buffer values
+    mCircularBufferWriteHead = mCircularBufferWriteHeadTwo =  mCircularBufferWriteHeadThree = mCircularBufferWriteHeadFour = 0;
     
+    mCircularBufferWriteHeadFive = mCircularBufferWriteHeadSix = mCircularBufferWriteHeadSeven = mCircularBufferWriteHeadEight = 0;
     
+    mDelayTimeInSamples = mDelayTwoTimeInSamples = mDelayThreeTimeInSamples = mDelayFourTimeInSamples = 0.0;
     
-    mCircularBufferWriteHead = 0;
+    mDelayFiveTimeInSamples = mDelaySixTimeInSamples = mDelaySevenTimeInSamples = mDelayEightTimeInSamples = 0.0;
     
-    //mCircularBufferLength = 0;
+    mDelayReadHead = mDelayTwoReadHead = mDelayThreeReadHead = mDelayFourReadHead = mDelayFiveReadHead = mDelaySixReadHead = mDelaySevenReadHead = mDelayEightReadHead = 0.0;
     
-    mDelayTimeInSamples = 0.0;
-    mDelayReadHead = 0.0;
+    mfeedbackLeft = mfeedbackRight = mfeedbackLeftTwo = mfeedbackRightTwo = mfeedbackLeftThree = mfeedbackLeftFour = mfeedbackRightFour = 0.0;
     
+    mfeedbackLeftFive = mfeedbackRightFive = mfeedbackLeftSix = mfeedbackRightSix = mfeedbackLeftSeven = mfeedbackRightSeven = mfeedbackLeftEight = mfeedbackRightEight = 0.0;
     
-    mCircularBufferWriteHeadTwo = 0;
+    mLFOphase = mLFOphaseTwo = mLFOphaseThree = mLFOphaseFour = mLFOphaseFive = mLFOphaseSix = mLFOphaseSeven = mLFOphaseEight = 0;
     
-    mDelayTwoTimeInSamples = 0.0;
-    mDelayTwoReadHead = 0.0;
-    
-    
-    mCircularBufferWriteHeadThree = 0;
-    
-    
-    mDelayThreeTimeInSamples = 0.0;
-    mDelayThreeReadHead = 0.0;
-    
-    
-    mCircularBufferWriteHeadFour = 0;
-    
-    mDelayFourTimeInSamples = 0.0;
-    mDelayFourReadHead = 0.0;
-    
-    
-    mCircularBufferWriteHeadFive = 0;
-    
-    mDelayFiveTimeInSamples = 0.0;
-    mDelayFiveReadHead = 0.0;
-    
-    
-    mCircularBufferWriteHeadSix = 0;
-    
-    mDelaySixTimeInSamples = 0.0;
-    mDelaySixReadHead = 0.0;
-    
-    
-    mCircularBufferWriteHeadSeven = 0;
-    
-    mDelaySevenTimeInSamples = 0.0;
-    mDelaySevenReadHead = 0.0;
-    
-    
-    mCircularBufferWriteHeadEight = 0;
-    
-    mDelayEightTimeInSamples = 0.0;
-    mDelayEightReadHead = 0.0;
-    
-    
-    
-    
-    feedback = 0.5;
-    mfeedbackLeft = 0.0;
-    mDelayTimeSmoothed = 1;
-    mLFOphase = 0;
-    mLFOrate = 0.3f;
-    
-    feedbackTwo = 0.5;
-    mfeedbackLeftTwo = 0.0;
-    mDelayTimeSmoothedTwo = 1;
-    mLFOphaseTwo = 0;
-    mLFOrateTwo = 0.3f;
-    
-    feedbackThree = 0.5;
-    mfeedbackLeftThree = 0.0;
-    mDelayTimeSmoothedThree = 1;
-    mLFOphaseThree = 0;
-    mLFOrateThree = 0.3f;
-    
-    feedbackFour = 0.5;
-    mfeedbackLeftFour = 0.0;
-    mDelayTimeSmoothedFour = 1;
-    mLFOphaseFour = 0;
-    mLFOrateFour  = 0.3f;
-    
-    feedbackFive = 0.5;
-    mfeedbackLeftFive = 0.0;
-    mDelayTimeSmoothedFive = 1;
-    mLFOphaseFive = 0;
-    mLFOrateFive = 0.3f;
-    
-    feedbackSix = 0.5;
-    mfeedbackLeftSix = 0.0;
-    mDelayTimeSmoothedSix = 1;
-    mLFOphaseSix = 0;
-    mLFOrateSix = 0.3f;
-    
-    feedbackSeven = 0.5;
-    mfeedbackLeftSeven = 0.0;
-    mDelayTimeSmoothedSeven = 1;
-    mLFOphaseSeven = 0;
-    mLFOrateSeven  = 0.3f;
-    
-    feedbackEight = 0.5;
-    mfeedbackLeftEight = 0.0;
-    mDelayTimeSmoothedEight = 1;
-    mLFOphaseEight = 0;
-    mLFOrateEight  = 0.3f;
-    
-    
-    
-    
+    mLFOrate = mLFOrateTwo= mLFOrateThree = mLFOrateFour = mLFOrateFive = mLFOrateSix = mLFOrateSeven = mLFOrateEight = 0.3f;
     
 }
 
@@ -297,23 +181,10 @@ void WaylodelayUdAudioProcessor::prepareToPlay (double sampleRate, int samplesPe
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
     
-    mLFOphase = 0;
-    mLFOrate = 0.3f;
-    mLFOphaseTwo = 0;
-    mLFOrateTwo = 0.3f;
-    mLFOphaseThree = 0;
-    mLFOrateThree = 0.3f;
-    mLFOphaseFour = 0;
-    mLFOrateFour = 0.3f;
-    mLFOphaseFive = 0;
-    mLFOrateFive = 0.3f;
-    mLFOphaseSix = 0;
-    mLFOrateSix = 0.3f;
-    mLFOphaseSeven = 0;
-    mLFOrateSeven = 0.3f;
-    mLFOphaseEight = 0;
-    mLFOrateEight = 0.3f;
-    
+    mLFOphase = mLFOphaseTwo = mLFOphaseThree = mLFOphaseFour =  mLFOphaseFive =  mLFOphaseSix = mLFOphaseSeven = mLFOphaseEight = 0;
+
+    mLFOrateTwo = mLFOrateTwo = mLFOrateThree = mLFOrateFour =  mLFOrateFive =  mLFOrateSix =  mLFOrateSeven = mLFOrateEight = 0.3f  ;
+
     
     
     
@@ -390,9 +261,7 @@ void WaylodelayUdAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
     
-    
 
-    
     
     float* LeftChannel = buffer.getWritePointer(0);
     float* RightChannel = buffer.getWritePointer(1);
@@ -740,8 +609,6 @@ void WaylodelayUdAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
                          
                          
                          );
-        
-        
         
         
         
