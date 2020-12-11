@@ -225,6 +225,16 @@ void WaylodelayUdAudioProcessor::releaseResources()
 #ifndef JucePlugin_PreferredChannelConfigurations
 bool WaylodelayUdAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
 {
+    
+    if (layouts.getMainInputChannelSet() == juce::AudioChannelSet::stereo() &&
+        layouts.getMainOutputChannelSet() == juce::AudioChannelSet::stereo()) {
+        return true;
+    } else {
+        return false;
+    }
+    
+    
+/***
 #if JucePlugin_IsMidiEffect
     juce::ignoreUnused (layouts);
     return true;
@@ -243,6 +253,7 @@ bool WaylodelayUdAudioProcessor::isBusesLayoutSupported (const BusesLayout& layo
     
     return true;
 #endif
+ ***/
 }
 #endif
 
