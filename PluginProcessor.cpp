@@ -272,10 +272,20 @@ void WaylodelayUdAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
     
+    float* LeftChannel;
+    float* RightChannel;
 
-    
-    float* LeftChannel = buffer.getWritePointer(0);
-    float* RightChannel = buffer.getWritePointer(1);
+    if (totalNumInputChannels >1){
+    LeftChannel = buffer.getWritePointer(0);
+    RightChannel = buffer.getWritePointer(0);
+    }
+    else
+    {
+        LeftChannel = buffer.getWritePointer(0);
+        RightChannel = buffer.getWritePointer(1);
+        
+    }
+        
     
     
     
