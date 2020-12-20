@@ -77,7 +77,7 @@ WaylodelayUdAudioProcessorEditor::WaylodelayUdAudioProcessorEditor (WaylodelayUd
     delaySettings.addItem ("233 legend echo 3", 27);
     delaySettings.addItem ("Waylochorus 1", 28);
     delaySettings.addItem ("Waylolead 1", 29);
-    delaySettings.setSelectedId (1);
+    //delaySettings.setSelectedId (1);
     
     delaySettings.onChange = [this] { getPreset(); };
     
@@ -110,6 +110,25 @@ WaylodelayUdAudioProcessorEditor::WaylodelayUdAudioProcessorEditor (WaylodelayUd
     dryGainLabel.setText("Dry Gain", juce::dontSendNotification);
     dryGainLabel.setColour (juce::Label::textColourId, juce::Colours::lightseagreen);
     addAndMakeVisible(dryGainLabel);
+    
+    
+    
+    juce::AudioParameterFloat* wetGainParameter = (juce::AudioParameterFloat*)params.getUnchecked(41);
+    mWetGainSlider.setBounds(750, 0, 150, 150);
+    wetGainLabel.setBounds(675,0,150,150);
+    wetGainLabel.setText("Wet Gain", juce::dontSendNotification);
+    wetGainLabel.setColour (juce::Label::textColourId, juce::Colours::lightseagreen);
+    addAndMakeVisible(wetGainLabel);
+    mWetGainSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
+    mWetGainSlider.setTextBoxStyle(juce::Slider::TextBoxLeft, false, 75, 50);
+    mWetGainSlider.setRange(wetGainParameter->range.start, wetGainParameter->range.end);
+    mWetGainSlider.setValue(*wetGainParameter);
+    addAndMakeVisible(mWetGainSlider);
+    mWetGainSlider.onValueChange = [this, wetGainParameter] { *wetGainParameter = mWetGainSlider.getValue(); };
+    mWetGainSlider.onDragStart = [wetGainParameter] {wetGainParameter->beginChangeGesture(); };
+    mWetGainSlider.onDragEnd = [wetGainParameter] {wetGainParameter->endChangeGesture(); };
+    
+    
     TitleLabel.setBounds(600,450,300,300);
     TitleLabel.setText("WAYLOMOD UD 2.0", juce::dontSendNotification);
     TitleLabel.setColour (juce::Label::textColourId, juce::Colours::yellow);
@@ -652,6 +671,8 @@ void WaylodelayUdAudioProcessorEditor::setSliders(){
     
     mDryGainSlider.setValue(*dryGainParameter2);
     
+
+    
     juce::AudioParameterFloat* delayTimeParameter2 = (juce::AudioParameterFloat*)params2.getUnchecked(0);
     mDelayTimeSlider.setValue(*delayTimeParameter2);
     
@@ -741,6 +762,9 @@ void WaylodelayUdAudioProcessorEditor::setSliders(){
     juce::AudioParameterFloat* delayEightFeedbackParameter2 = (juce::AudioParameterFloat*)params2.getUnchecked(40);
     mDelayEightFeedbackSlider.setValue(*delayEightFeedbackParameter2);
     
+    juce::AudioParameterFloat* wetGainParameter2 = (juce::AudioParameterFloat*)params2.getUnchecked(41);
+    mWetGainSlider.setValue(*wetGainParameter2);
+    
     
 }
 
@@ -798,6 +822,7 @@ void WaylodelayUdAudioProcessorEditor::setSliders(){
          mDelaySixFeedbackSlider.setValue(settingsArray[preset][38]);
          mDelaySevenFeedbackSlider.setValue(settingsArray[preset][39]);
          mDelayEightFeedbackSlider.setValue(settingsArray[preset][40]);
+         mWetGainSlider.setValue(settingsArray[preset][41]);
 
          
 }

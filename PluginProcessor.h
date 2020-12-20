@@ -114,6 +114,7 @@ private:
     
     juce::AudioParameterFloat* mDelayOneTimeParameter;
     juce::AudioParameterFloat* mDryGainParameter;
+    juce::AudioParameterFloat* mWetGainParameter;
     juce::AudioParameterFloat* mDelayOneGainParameter;
     juce::AudioParameterFloat* mDelayOneModDepthParameter;
     juce::AudioParameterFloat* mDelayOneModRateParameter;

@@ -33,6 +33,8 @@ WaylodelayUdAudioProcessor::WaylodelayUdAudioProcessor()
                                                                      "Gain",                                      // parameter name
                                                                      juce::NormalisableRange<float> (0.0f, 1.0f), // parameter range
                                                                      0.5f));                                      // default value
+    
+
     addParameter(mDelayOneGainParameter = new juce::AudioParameterFloat("delayonegain", "Delay One Gain", juce::NormalisableRange<float> (0.0f, 1.0f), 0.5f));
     addParameter(mDelayOneModDepthParameter = new juce::AudioParameterFloat("delayonemodDepth", "Delay One Mod Depth", juce::NormalisableRange<float> (0.0f, 1.0f), 0.9f));
     addParameter(mDelayOneModRateParameter = new juce::AudioParameterFloat("delayonemodRate", "Delay One Mod Rate", juce::NormalisableRange<float> (0.0f, 1.0f), 0.35f));
@@ -79,6 +81,11 @@ WaylodelayUdAudioProcessor::WaylodelayUdAudioProcessor()
     addParameter(mDelayEightModDepthParameter = new juce::AudioParameterFloat("delayeightmodDepth", "Delay Eight Mod Depth", juce::NormalisableRange<float> (0.0f, 1.0f), 0.1f));
     addParameter(mDelayEightModRateParameter = new juce::AudioParameterFloat("delayeightmodRate", "Delay Eight Mod Depth", juce::NormalisableRange<float> (0.0f, 1.0f), 0.33f));
     addParameter(mDelayEightFeedbackParameter = new juce::AudioParameterFloat("feedbackeight", "Feedback Eight ", juce::NormalisableRange<float> (0.0f, 0.98f), 0.0f));
+    
+    addParameter (mWetGainParameter = new juce::AudioParameterFloat ("wetgain",                                      // parameter ID
+                                                                     "Wet Gain",                                      // parameter name
+                                                                     juce::NormalisableRange<float> (0.0f, 1.0f), // parameter range
+                                                                     0.5f));                                      // default value
     
     
     
@@ -609,10 +616,10 @@ void WaylodelayUdAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
         
         
         buffer.setSample(0, i, buffer.getSample(0, i)* *mDryGainParameter +
-                         delay_sample_Left* *mDelayOneGainParameter+ delay_sample_Right* *mDelayOneGainParameter
-                         +delay_sample_LeftThree* *mDelayThreeGainParameter+ delay_sample_RightThree* *mDelayThreeGainParameter
-                         +delay_sample_LeftFive* *mDelayFiveGainParameter+ delay_sample_RightFive* *mDelayFiveGainParameter
-                         +delay_sample_LeftSeven* *mDelaySevenGainParameter+ delay_sample_RightSeven* *mDelaySevenGainParameter
+                         delay_sample_Left* *mDelayOneGainParameter* *mWetGainParameter + delay_sample_Right* *mDelayOneGainParameter* *mWetGainParameter
+                         +delay_sample_LeftThree* *mDelayThreeGainParameter* *mWetGainParameter+ delay_sample_RightThree* *mDelayThreeGainParameter* *mWetGainParameter
+                         +delay_sample_LeftFive* *mDelayFiveGainParameter* *mWetGainParameter+ delay_sample_RightFive* *mDelayFiveGainParameter* *mWetGainParameter
+                         +delay_sample_LeftSeven* *mDelaySevenGainParameter* *mWetGainParameter+ delay_sample_RightSeven* *mDelaySevenGainParameter* *mWetGainParameter
                          
                          
                          
@@ -620,10 +627,10 @@ void WaylodelayUdAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
                          );
         
         buffer.setSample(1, i, buffer.getSample(1, i)* *mDryGainParameter
-                         + delay_sample_LeftTwo* *mDelayTwoGainParameter+ delay_sample_RightTwo* *mDelayTwoGainParameter
-                         + delay_sample_LeftFour* *mDelayFourGainParameter+ delay_sample_RightFour* *mDelayFourGainParameter
-                         + delay_sample_LeftSix* *mDelaySixGainParameter+ delay_sample_RightSix* *mDelaySixGainParameter
-                         + delay_sample_LeftEight* *mDelayEightGainParameter+ delay_sample_RightEight* *mDelayEightGainParameter
+                         + delay_sample_LeftTwo* *mDelayTwoGainParameter* *mWetGainParameter+ delay_sample_RightTwo* *mDelayTwoGainParameter* *mWetGainParameter
+                         + delay_sample_LeftFour* *mDelayFourGainParameter* *mWetGainParameter+ delay_sample_RightFour* *mDelayFourGainParameter* *mWetGainParameter
+                         + delay_sample_LeftSix* *mDelaySixGainParameter* *mWetGainParameter+ delay_sample_RightSix* *mDelaySixGainParameter* *mWetGainParameter
+                         + delay_sample_LeftEight* *mDelayEightGainParameter* *mWetGainParameter+ delay_sample_RightEight* *mDelayEightGainParameter* *mWetGainParameter
                          
                          
                          
@@ -746,6 +753,7 @@ void WaylodelayUdAudioProcessor::getStateInformation (juce::MemoryBlock& destDat
     xml->setAttribute("delayeightdepth", *mDelayEightModDepthParameter);
     xml->setAttribute("delayeightrate", *mDelayEightModRateParameter);
     xml->setAttribute("delayeightfeedback", *mDelayEightFeedbackParameter);
+    xml->setAttribute("wetgain", *mWetGainParameter);
     
     
     copyXmlToBinary(*xml, destData);
@@ -813,6 +821,7 @@ void WaylodelayUdAudioProcessor::setStateInformation (const void* data, int size
         *mDelayEightModDepthParameter = xml->getDoubleAttribute("delayeightdepth");
         *mDelayEightModRateParameter = xml->getDoubleAttribute("delayeightrate");
         *mDelayEightFeedbackParameter = xml->getDoubleAttribute("delayeightfeedback");
+        *mWetGainParameter = xml->getDoubleAttribute("wetgain");
     }
 }
 
