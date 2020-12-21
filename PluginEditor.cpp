@@ -105,8 +105,8 @@ WaylodelayUdAudioProcessorEditor::WaylodelayUdAudioProcessorEditor (WaylodelayUd
     mDelayTimeSlider.onDragEnd = [delayTimeParameter] {delayTimeParameter->endChangeGesture(); };
     
     juce::AudioParameterFloat* dryGainParameter = (juce::AudioParameterFloat*)params.getUnchecked(1);
-    mDryGainSlider.setBounds(500, 0, 150, 150);
-    dryGainLabel.setBounds(425,0,150,150);
+    mDryGainSlider.setBounds(600, 0, 150, 150);
+    dryGainLabel.setBounds(520,0,150,150);
     dryGainLabel.setText("Dry Gain", juce::dontSendNotification);
     dryGainLabel.setColour (juce::Label::textColourId, juce::Colours::lightseagreen);
     addAndMakeVisible(dryGainLabel);
@@ -114,8 +114,8 @@ WaylodelayUdAudioProcessorEditor::WaylodelayUdAudioProcessorEditor (WaylodelayUd
     
     
     juce::AudioParameterFloat* wetGainParameter = (juce::AudioParameterFloat*)params.getUnchecked(41);
-    mWetGainSlider.setBounds(750, 0, 150, 150);
-    wetGainLabel.setBounds(675,0,150,150);
+    mWetGainSlider.setBounds(850, 0, 150, 150);
+    wetGainLabel.setBounds(775,0,150,150);
     wetGainLabel.setText("Wet Gain", juce::dontSendNotification);
     wetGainLabel.setColour (juce::Label::textColourId, juce::Colours::lightseagreen);
     addAndMakeVisible(wetGainLabel);
@@ -127,6 +127,37 @@ WaylodelayUdAudioProcessorEditor::WaylodelayUdAudioProcessorEditor (WaylodelayUd
     mWetGainSlider.onValueChange = [this, wetGainParameter] { *wetGainParameter = mWetGainSlider.getValue(); };
     mWetGainSlider.onDragStart = [wetGainParameter] {wetGainParameter->beginChangeGesture(); };
     mWetGainSlider.onDragEnd = [wetGainParameter] {wetGainParameter->endChangeGesture(); };
+    
+    
+    juce::AudioParameterFloat* rateParameter = (juce::AudioParameterFloat*)params.getUnchecked(42);
+    mRateSlider.setBounds(370, 0, 150, 150);
+    rateLabel.setBounds(290,0,150,150);
+    rateLabel.setText("More Beer", juce::dontSendNotification);
+    rateLabel.setColour (juce::Label::textColourId, juce::Colours::lightseagreen);
+    addAndMakeVisible(rateLabel);
+    mRateSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
+    mRateSlider.setTextBoxStyle(juce::Slider::TextBoxLeft, false, 75, 50);
+    mRateSlider.setRange(rateParameter->range.start, rateParameter->range.end);
+    mRateSlider.setValue(*rateParameter);
+    addAndMakeVisible(mRateSlider);
+    mRateSlider.onValueChange = [this, rateParameter] { *rateParameter = mRateSlider.getValue(); };
+    mRateSlider.onDragStart = [rateParameter] {rateParameter->beginChangeGesture(); };
+    mRateSlider.onDragEnd = [rateParameter] {rateParameter->endChangeGesture(); };
+    
+    juce::AudioParameterFloat* depthParameter = (juce::AudioParameterFloat*)params.getUnchecked(43);
+    mDepthSlider.setBounds(150, 0, 150, 150);
+    depthLabel2.setBounds(25,0,150,150);
+    depthLabel2.setText("Visit Zarabeth", juce::dontSendNotification);
+    depthLabel2.setColour (juce::Label::textColourId, juce::Colours::lightseagreen);
+    addAndMakeVisible(depthLabel2);
+    mDepthSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
+    mDepthSlider.setTextBoxStyle(juce::Slider::TextBoxLeft, false, 75, 50);
+    mDepthSlider.setRange(depthParameter->range.start, depthParameter->range.end);
+    mDepthSlider.setValue(*depthParameter);
+    addAndMakeVisible(mDepthSlider);
+    mDepthSlider.onValueChange = [this, depthParameter] { *depthParameter = mDepthSlider.getValue(); };
+    mDepthSlider.onDragStart = [depthParameter] {depthParameter->beginChangeGesture(); };
+    mDepthSlider.onDragEnd = [depthParameter] {depthParameter->endChangeGesture(); };
     
     
     TitleLabel.setBounds(600,450,300,300);
@@ -765,6 +796,12 @@ void WaylodelayUdAudioProcessorEditor::setSliders(){
     juce::AudioParameterFloat* wetGainParameter2 = (juce::AudioParameterFloat*)params2.getUnchecked(41);
     mWetGainSlider.setValue(*wetGainParameter2);
     
+    juce::AudioParameterFloat* rate2= (juce::AudioParameterFloat*)params2.getUnchecked(42);
+    mRateSlider.setValue(*rate2);
+    
+    juce::AudioParameterFloat* depth2 = (juce::AudioParameterFloat*)params2.getUnchecked(43);
+    mDepthSlider.setValue(*depth2);
+    
     
 }
 
@@ -823,6 +860,8 @@ void WaylodelayUdAudioProcessorEditor::setSliders(){
          mDelaySevenFeedbackSlider.setValue(settingsArray[preset][39]);
          mDelayEightFeedbackSlider.setValue(settingsArray[preset][40]);
          mWetGainSlider.setValue(settingsArray[preset][41]);
+         mDepthSlider.setValue(settingsArray[preset][42]);
+         mRateSlider.setValue(settingsArray[preset][43]);
 
          
 }

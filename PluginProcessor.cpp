@@ -87,6 +87,16 @@ WaylodelayUdAudioProcessor::WaylodelayUdAudioProcessor()
                                                                      juce::NormalisableRange<float> (0.0f, 1.0f), // parameter range
                                                                      0.5f));                                      // default value
     
+    addParameter (mRateParameter = new juce::AudioParameterFloat ("rate",                                      // parameter ID
+                                                                     "Global Rate",                                      // parameter name
+                                                                     juce::NormalisableRange<float> (0.0f, 5.0f), // parameter range
+                                                                     1.0f));
+    
+    addParameter (mDepthParameter = new juce::AudioParameterFloat ("depth",                                      // parameter ID
+                                                                  "Global Depth",                                      // parameter name
+                                                                  juce::NormalisableRange<float> (0.0f, 5.0f), // parameter range
+                                                                  1.0f));
+    
     
     
     // initialize buffer values
@@ -315,14 +325,14 @@ void WaylodelayUdAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
         
         // move the LFO phase thru the sine wave
         
-        mLFOphase += *mDelayOneModRateParameter / getSampleRate();
-        mLFOphaseTwo += *mDelayTwoModRateParameter / getSampleRate();
-        mLFOphaseThree += *mDelayThreeModRateParameter / getSampleRate();
-        mLFOphaseFour += *mDelayFourModRateParameter / getSampleRate();
-        mLFOphaseFive += *mDelayFiveModRateParameter / getSampleRate();
-        mLFOphaseSix += *mDelaySixModRateParameter / getSampleRate();
-        mLFOphaseSeven += *mDelaySevenModRateParameter / getSampleRate();
-        mLFOphaseEight += *mDelayEightModRateParameter / getSampleRate();
+        mLFOphase += *mDelayOneModRateParameter* *mRateParameter / getSampleRate();
+        mLFOphaseTwo += *mDelayTwoModRateParameter* *mRateParameter / getSampleRate();
+        mLFOphaseThree += *mDelayThreeModRateParameter* *mRateParameter / getSampleRate();
+        mLFOphaseFour += *mDelayFourModRateParameter* *mRateParameter / getSampleRate();
+        mLFOphaseFive += *mDelayFiveModRateParameter* *mRateParameter / getSampleRate();
+        mLFOphaseSix += *mDelaySixModRateParameter* *mRateParameter / getSampleRate();
+        mLFOphaseSeven += *mDelaySevenModRateParameter* *mRateParameter / getSampleRate();
+        mLFOphaseEight += *mDelayEightModRateParameter* *mRateParameter / getSampleRate();
         
         
         
@@ -369,14 +379,14 @@ void WaylodelayUdAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
         
         //convert -1 to 1 to changes in delay time of .005 min and .03 max
         
-        float lfoOutMapped = juce::jmap(lfoOut,-1.f,1.f,0.001f, 0.1f);
-        float lfoOutMappedTwo = juce::jmap(lfoOutTwo,-1.f,1.f,0.001f, 0.1f);
-        float lfoOutMappedThree = juce::jmap(lfoOutThree,-1.f,1.f,0.001f, 0.1f);
-        float lfoOutMappedFour = juce::jmap(lfoOutFour,-1.f,1.f,0.001f, 0.1f);
-        float lfoOutMappedFive = juce::jmap(lfoOutFive,-1.f,1.f,0.001f, 0.1f);
-        float lfoOutMappedSix = juce::jmap(lfoOutSix,-1.f,1.f,0.001f, 0.1f);
-        float lfoOutMappedSeven = juce::jmap(lfoOutSeven,-1.f,1.f,0.001f, 0.1f);
-        float lfoOutMappedEight = juce::jmap(lfoOutEight,-1.f,1.f,0.001f, 0.1f);
+        float lfoOutMapped = juce::jmap(lfoOut,-1.f,1.f,0.001f, 0.1f* *mDepthParameter);
+        float lfoOutMappedTwo = juce::jmap(lfoOutTwo,-1.f,1.f,0.001f, 0.1f* *mDepthParameter);
+        float lfoOutMappedThree = juce::jmap(lfoOutThree,-1.f,1.f,0.001f, 0.1f* *mDepthParameter);
+        float lfoOutMappedFour = juce::jmap(lfoOutFour,-1.f,1.f,0.001f, 0.1f* *mDepthParameter);
+        float lfoOutMappedFive = juce::jmap(lfoOutFive,-1.f,1.f,0.001f, 0.1f* *mDepthParameter);
+        float lfoOutMappedSix = juce::jmap(lfoOutSix,-1.f,1.f,0.001f, 0.1f* *mDepthParameter);
+        float lfoOutMappedSeven = juce::jmap(lfoOutSeven,-1.f,1.f,0.001f, 0.1f* *mDepthParameter);
+        float lfoOutMappedEight = juce::jmap(lfoOutEight,-1.f,1.f,0.001f, 0.1f* *mDepthParameter);
         
         
         
@@ -754,6 +764,8 @@ void WaylodelayUdAudioProcessor::getStateInformation (juce::MemoryBlock& destDat
     xml->setAttribute("delayeightrate", *mDelayEightModRateParameter);
     xml->setAttribute("delayeightfeedback", *mDelayEightFeedbackParameter);
     xml->setAttribute("wetgain", *mWetGainParameter);
+    xml->setAttribute("rate", *mRateParameter);
+    xml->setAttribute("depth", *mDepthParameter);
     
     
     copyXmlToBinary(*xml, destData);
@@ -822,6 +834,8 @@ void WaylodelayUdAudioProcessor::setStateInformation (const void* data, int size
         *mDelayEightModRateParameter = xml->getDoubleAttribute("delayeightrate");
         *mDelayEightFeedbackParameter = xml->getDoubleAttribute("delayeightfeedback");
         *mWetGainParameter = xml->getDoubleAttribute("wetgain");
+        *mRateParameter = xml->getDoubleAttribute("rate");
+        *mDepthParameter = xml->getDoubleAttribute("depth");
     }
 }
 
