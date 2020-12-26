@@ -62,48 +62,56 @@ private:
     float feedback;
     float mLFOphase;
     float mLFOrate;
+    float mPanOne;
     
     float mDelayTwoTimeInSamples;
     float mDelayTwoReadHead;
     float feedbackTwo;
     float mLFOphaseTwo;
     float mLFOrateTwo;
+    float mPanTwo;
     
     float mDelayThreeTimeInSamples;
     float mDelayThreeReadHead;
     float feedbackThree;
     float mLFOphaseThree;
     float mLFOrateThree;
+    float mPanThree;
     
     float mDelayFourTimeInSamples;
     float mDelayFourReadHead;
     float feedbackFour;
     float mLFOphaseFour;
     float mLFOrateFour;
+    float mPanFour;
     
     float mDelayFiveTimeInSamples;
     float mDelayFiveReadHead;
     float feedbackFive;
     float mLFOphaseFive;
     float mLFOrateFive;
+    float mPanFive;
     
     float mDelaySixTimeInSamples;
     float mDelaySixReadHead;
     float feedbackSix;
     float mLFOphaseSix;
     float mLFOrateSix;
+    float mPanSix;
     
     float mDelaySevenTimeInSamples;
     float mDelaySevenReadHead;
     float feedbackSeven;
     float mLFOphaseSeven;
     float mLFOrateSeven;
+    float mPanSeven;
     
     float mDelayEightTimeInSamples;
     float mDelayEightReadHead;
     float feedbackEight;
     float mLFOphaseEight;
     float mLFOrateEight;
+    float mPanEight;
     
     
     
@@ -121,6 +129,7 @@ private:
     juce::AudioParameterFloat* mDelayOneModDepthParameter;
     juce::AudioParameterFloat* mDelayOneModRateParameter;
     juce::AudioParameterFloat* mDelayOneFeedbackParameter;
+    juce::AudioParameterFloat* mDelayOnePanParameter;
     
     
     juce::AudioParameterFloat* mDelayTwoTimeParameter;
@@ -128,42 +137,49 @@ private:
     juce::AudioParameterFloat* mDelayTwoModDepthParameter;
     juce::AudioParameterFloat* mDelayTwoModRateParameter;
     juce::AudioParameterFloat* mDelayTwoFeedbackParameter;
+    juce::AudioParameterFloat* mDelayTwoPanParameter;
     
     juce::AudioParameterFloat* mDelayThreeTimeParameter;
     juce::AudioParameterFloat* mDelayThreeGainParameter;
     juce::AudioParameterFloat* mDelayThreeModDepthParameter;
     juce::AudioParameterFloat* mDelayThreeModRateParameter;
     juce::AudioParameterFloat* mDelayThreeFeedbackParameter;
+    juce::AudioParameterFloat* mDelayThreePanParameter;
     
     juce::AudioParameterFloat* mDelayFourTimeParameter;
     juce::AudioParameterFloat* mDelayFourGainParameter;
     juce::AudioParameterFloat* mDelayFourModDepthParameter;
     juce::AudioParameterFloat* mDelayFourModRateParameter;
     juce::AudioParameterFloat* mDelayFourFeedbackParameter;
+    juce::AudioParameterFloat* mDelayFourPanParameter;
     
     juce::AudioParameterFloat* mDelayFiveTimeParameter;
     juce::AudioParameterFloat* mDelayFiveGainParameter;
     juce::AudioParameterFloat* mDelayFiveModDepthParameter;
     juce::AudioParameterFloat* mDelayFiveModRateParameter;
     juce::AudioParameterFloat* mDelayFiveFeedbackParameter;
+    juce::AudioParameterFloat* mDelayFivePanParameter;
     
     juce::AudioParameterFloat* mDelaySixTimeParameter;
     juce::AudioParameterFloat* mDelaySixGainParameter;
     juce::AudioParameterFloat* mDelaySixModDepthParameter;
     juce::AudioParameterFloat* mDelaySixModRateParameter;
     juce::AudioParameterFloat* mDelaySixFeedbackParameter;
+    juce::AudioParameterFloat* mDelaySixPanParameter;
     
     juce::AudioParameterFloat* mDelaySevenTimeParameter;
     juce::AudioParameterFloat* mDelaySevenGainParameter;
     juce::AudioParameterFloat* mDelaySevenModDepthParameter;
     juce::AudioParameterFloat* mDelaySevenModRateParameter;
     juce::AudioParameterFloat* mDelaySevenFeedbackParameter;
+    juce::AudioParameterFloat* mDelaySevenPanParameter;
     
     juce::AudioParameterFloat* mDelayEightTimeParameter;
     juce::AudioParameterFloat* mDelayEightGainParameter;
     juce::AudioParameterFloat* mDelayEightModDepthParameter;
     juce::AudioParameterFloat* mDelayEightModRateParameter;
     juce::AudioParameterFloat* mDelayEightFeedbackParameter;
+    juce::AudioParameterFloat* mDelayEightPanParameter;
     
     float mCircularBufferLeft[96000] = {  };
     float mCircularBufferRight[96000] = {  };

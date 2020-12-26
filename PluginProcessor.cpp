@@ -97,6 +97,17 @@ WaylodelayUdAudioProcessor::WaylodelayUdAudioProcessor()
                                                                   juce::NormalisableRange<float> (0.0f, 5.0f), // parameter range
                                                                   1.0f));
     
+    addParameter(mDelayOnePanParameter = new juce::AudioParameterFloat("panOne", "Pan One", juce::NormalisableRange<float> (0.0f, 0.1f), 0.0f));
+    addParameter(mDelayTwoPanParameter = new juce::AudioParameterFloat("panTwo", "Pan Two", juce::NormalisableRange<float> (0.0f, 0.1f), 1.0f));
+    addParameter(mDelayThreePanParameter = new juce::AudioParameterFloat("panThree", "Pan Three", juce::NormalisableRange<float> (0.0f, 0.1f), 0.0f));
+    addParameter(mDelayFourPanParameter = new juce::AudioParameterFloat("panFour", "Pan Four", juce::NormalisableRange<float> (0.0f, 0.1f), 1.0f));
+    addParameter(mDelayFivePanParameter = new juce::AudioParameterFloat("panFive", "Pan Five", juce::NormalisableRange<float> (0.0f, 0.1f), 0.0f));
+    addParameter(mDelaySixPanParameter = new juce::AudioParameterFloat("panSix", "Pan Six", juce::NormalisableRange<float> (0.0f, 0.1f), 1.0f));
+    addParameter(mDelaySevenPanParameter = new juce::AudioParameterFloat("panSeven", "Pan Seven", juce::NormalisableRange<float> (0.0f, 0.1f), 0.0f));
+    addParameter(mDelayEightPanParameter = new juce::AudioParameterFloat("panEight", "Pan Eight", juce::NormalisableRange<float> (0.0f, 0.1f), 1.0f));
+    
+    
+    
     
     
     // initialize buffer values
@@ -623,7 +634,20 @@ void WaylodelayUdAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
         
         // add delay into live audio buffer
         
-        
+        /**
+         At mid pan, both L and R come through 100% (as you’d expect!), and then you just cut the left as you go from 0.5->0, and cut the right as you go from 0.5->1.
+         
+         if (level < 0.5) { // cut right
+         right = level;
+         left = 0.5;  }
+         if (level >= 0.5) { // cut left
+         right = 0.5;
+         left = 1 - level;
+         }
+         
+         **/
+         
+ 
         
         buffer.setSample(0, i, buffer.getSample(0, i)* *mDryGainParameter +
                          delay_sample_Left* *mDelayOneGainParameter* *mWetGainParameter + delay_sample_Right* *mDelayOneGainParameter* *mWetGainParameter
@@ -767,6 +791,15 @@ void WaylodelayUdAudioProcessor::getStateInformation (juce::MemoryBlock& destDat
     xml->setAttribute("rate", *mRateParameter);
     xml->setAttribute("depth", *mDepthParameter);
     
+    xml->setAttribute("panOne", *mDelayOnePanParameter);
+    xml->setAttribute("panTwo", *mDelayTwoPanParameter);
+    xml->setAttribute("panThree", *mDelayThreePanParameter);
+    xml->setAttribute("panFour", *mDelayFourPanParameter);
+    xml->setAttribute("panFive", *mDelayFivePanParameter);
+    xml->setAttribute("panSix", *mDelaySixPanParameter);
+    xml->setAttribute("panSeven", *mDelaySevenPanParameter);
+    xml->setAttribute("panEight", *mDelayEightPanParameter);
+    
     
     copyXmlToBinary(*xml, destData);
 }
@@ -836,6 +869,16 @@ void WaylodelayUdAudioProcessor::setStateInformation (const void* data, int size
         *mWetGainParameter = xml->getDoubleAttribute("wetgain");
         *mRateParameter = xml->getDoubleAttribute("rate");
         *mDepthParameter = xml->getDoubleAttribute("depth");
+        *mDelayOnePanParameter = xml->getDoubleAttribute("panOne");
+        *mDelayTwoPanParameter = xml->getDoubleAttribute("panTwo");
+        *mDelayThreePanParameter = xml->getDoubleAttribute("panThree");
+        *mDelayFourPanParameter = xml->getDoubleAttribute("panFour");
+        *mDelayFivePanParameter = xml->getDoubleAttribute("panFive");
+        *mDelaySixPanParameter = xml->getDoubleAttribute("panSix");
+        *mDelaySevenPanParameter = xml->getDoubleAttribute("panSeven");
+        *mDelayOnePanParameter = xml->getDoubleAttribute("panEight");
+        
+
     }
 }
 

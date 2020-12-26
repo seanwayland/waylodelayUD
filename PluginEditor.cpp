@@ -160,7 +160,7 @@ WaylodelayUdAudioProcessorEditor::WaylodelayUdAudioProcessorEditor (WaylodelayUd
     mDepthSlider.onDragEnd = [depthParameter] {depthParameter->endChangeGesture(); };
     
     
-    TitleLabel.setBounds(600,450,300,300);
+    TitleLabel.setBounds(600,550,300,300);
     TitleLabel.setText("WAYLOMOD UD 2.0", juce::dontSendNotification);
     TitleLabel.setColour (juce::Label::textColourId, juce::Colours::yellow);
     TitleLabel.setFont (juce::Font (40.0f, juce::Font::bold));
@@ -214,10 +214,18 @@ WaylodelayUdAudioProcessorEditor::WaylodelayUdAudioProcessorEditor (WaylodelayUd
     
     juce::AudioParameterFloat* delayOneFeedbackParameter = (juce::AudioParameterFloat*)params.getUnchecked(5);
     mDelayOneFeedbackSlider.setBounds(150, 400 , 150, 150);
+    
     FeedbackLabel.setBounds(10,370,200,200);
     FeedbackLabel.setText("Feedback", juce::dontSendNotification);
     FeedbackLabel.setColour (juce::Label::textColourId, juce::Colours::lightgreen);
     addAndMakeVisible(FeedbackLabel);
+    
+    PanLabel.setBounds(30,450,200,200);
+    PanLabel.setText("Pan", juce::dontSendNotification);
+    PanLabel.setColour (juce::Label::textColourId, juce::Colours::lightgreen);
+    addAndMakeVisible(PanLabel);
+    
+    
     mDelayOneFeedbackSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
     mDelayOneFeedbackSlider.setTextBoxStyle(juce::Slider::TextBoxLeft, false, 75, 50);
     mDelayOneFeedbackSlider.setRange(delayOneFeedbackParameter->range.start, delayOneFeedbackParameter->range.end);
@@ -663,6 +671,94 @@ WaylodelayUdAudioProcessorEditor::WaylodelayUdAudioProcessorEditor (WaylodelayUd
     mDelayEightFeedbackSlider.onDragStart = [delayEightFeedbackParameter] {delayEightFeedbackParameter->beginChangeGesture(); };
     mDelayEightFeedbackSlider.onDragEnd = [delayEightFeedbackParameter] {delayEightFeedbackParameter->endChangeGesture(); };
     
+    juce::AudioParameterFloat* delayOnePanParameter = (juce::AudioParameterFloat*)params.getUnchecked(44);
+    mDelayOnePanSlider.setBounds(150, 480 , 150, 150);
+    mDelayOnePanSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
+    mDelayOnePanSlider.setTextBoxStyle(juce::Slider::TextBoxLeft, false, 75, 50);
+    mDelayOnePanSlider.setRange(delayOnePanParameter->range.start, delayOnePanParameter->range.end);
+    mDelayOnePanSlider.setValue(*delayOnePanParameter);
+    addAndMakeVisible(mDelayOnePanSlider);
+    mDelayOnePanSlider.onValueChange = [this, delayOnePanParameter] { *delayOnePanParameter = mDelayOnePanSlider.getValue(); };
+    mDelayOnePanSlider.onDragStart = [delayOnePanParameter] {delayOnePanParameter->beginChangeGesture(); };
+    mDelayOnePanSlider.onDragEnd = [delayOnePanParameter] {delayOnePanParameter->endChangeGesture(); };
+    
+    juce::AudioParameterFloat* delayTwoPanParameter = (juce::AudioParameterFloat*)params.getUnchecked(45);
+    mDelayTwoPanSlider.setBounds(300, 480 , 150, 150);
+    mDelayTwoPanSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
+    mDelayTwoPanSlider.setTextBoxStyle(juce::Slider::TextBoxLeft, false, 75, 50);
+    mDelayTwoPanSlider.setRange(delayTwoPanParameter->range.start, delayTwoPanParameter->range.end);
+    mDelayEightFeedbackSlider.setValue(*delayTwoPanParameter);
+    addAndMakeVisible(mDelayTwoPanSlider);
+    mDelayTwoPanSlider.onValueChange = [this, delayTwoPanParameter] { *delayTwoPanParameter = mDelayTwoPanSlider.getValue(); };
+    mDelayTwoPanSlider.onDragStart = [delayTwoPanParameter] {delayTwoPanParameter->beginChangeGesture(); };
+    mDelayTwoPanSlider.onDragEnd = [delayTwoPanParameter] {delayTwoPanParameter->endChangeGesture(); };
+    
+    juce::AudioParameterFloat* delayThreePanParameter = (juce::AudioParameterFloat*)params.getUnchecked(46);
+    mDelayThreePanSlider.setBounds(450, 480 , 150, 150);
+    mDelayThreePanSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
+    mDelayThreePanSlider.setTextBoxStyle(juce::Slider::TextBoxLeft, false, 75, 50);
+    mDelayThreePanSlider.setRange(delayThreePanParameter->range.start, delayThreePanParameter->range.end);
+    mDelayThreePanSlider.setValue(*delayThreePanParameter);
+    addAndMakeVisible(mDelayThreePanSlider);
+    mDelayThreePanSlider.onValueChange = [this, delayThreePanParameter] { *delayThreePanParameter = mDelayThreePanSlider.getValue(); };
+    mDelayThreePanSlider.onDragStart = [delayThreePanParameter] {delayThreePanParameter->beginChangeGesture(); };
+    mDelayThreePanSlider.onDragEnd = [delayThreePanParameter] {delayThreePanParameter->endChangeGesture(); };
+    
+    juce::AudioParameterFloat* delayFourPanParameter = (juce::AudioParameterFloat*)params.getUnchecked(47);
+    mDelayFourPanSlider.setBounds(600, 480 , 150, 150);
+    mDelayFourPanSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
+    mDelayFourPanSlider.setTextBoxStyle(juce::Slider::TextBoxLeft, false, 75, 50);
+    mDelayFourPanSlider.setRange(delayFourPanParameter->range.start, delayFourPanParameter->range.end);
+    mDelayFourPanSlider.setValue(*delayFourPanParameter);
+    addAndMakeVisible(mDelayFourPanSlider);
+    mDelayFourPanSlider.onValueChange = [this, delayFourPanParameter] { *delayFourPanParameter = mDelayFourPanSlider.getValue(); };
+    mDelayFourPanSlider.onDragStart = [delayFourPanParameter] {delayFourPanParameter->beginChangeGesture(); };
+    mDelayFourPanSlider.onDragEnd = [delayFourPanParameter] {delayFourPanParameter->endChangeGesture(); };
+    
+    juce::AudioParameterFloat* delayFivePanParameter = (juce::AudioParameterFloat*)params.getUnchecked(48);
+    mDelayFivePanSlider.setBounds(750, 480 , 150, 150);
+    mDelayFivePanSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
+    mDelayFivePanSlider.setTextBoxStyle(juce::Slider::TextBoxLeft, false, 75, 50);
+    mDelayFivePanSlider.setRange(delayFivePanParameter->range.start, delayFivePanParameter->range.end);
+    mDelayFivePanSlider.setValue(*delayFivePanParameter);
+    addAndMakeVisible(mDelayFivePanSlider);
+    mDelayFivePanSlider.onValueChange = [this, delayFivePanParameter] { *delayFivePanParameter = mDelayFivePanSlider.getValue(); };
+    mDelayFivePanSlider.onDragStart = [delayFivePanParameter] {delayFivePanParameter->beginChangeGesture(); };
+    mDelayFivePanSlider.onDragEnd = [delayFivePanParameter] {delayFivePanParameter->endChangeGesture(); };
+    
+    juce::AudioParameterFloat* delaySixPanParameter = (juce::AudioParameterFloat*)params.getUnchecked(49);
+    mDelaySixPanSlider.setBounds(900, 480 , 150, 150);
+    mDelaySixPanSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
+    mDelaySixPanSlider.setTextBoxStyle(juce::Slider::TextBoxLeft, false, 75, 50);
+    mDelaySixPanSlider.setRange(delaySixPanParameter->range.start, delaySixPanParameter->range.end);
+    mDelaySixPanSlider.setValue(*delaySixPanParameter);
+    addAndMakeVisible(mDelaySixPanSlider);
+    mDelaySixPanSlider.onValueChange = [this, delaySixPanParameter] { *delaySixPanParameter = mDelaySixPanSlider.getValue(); };
+    mDelaySixPanSlider.onDragStart = [delaySixPanParameter] {delaySixPanParameter->beginChangeGesture(); };
+    mDelaySixPanSlider.onDragEnd = [delaySixPanParameter] {delaySixPanParameter->endChangeGesture(); };
+    
+    juce::AudioParameterFloat* delaySevenPanParameter = (juce::AudioParameterFloat*)params.getUnchecked(50);
+    mDelaySevenPanSlider.setBounds(1050, 480 , 150, 150);
+    mDelaySevenPanSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
+    mDelaySevenPanSlider.setTextBoxStyle(juce::Slider::TextBoxLeft, false, 75, 50);
+    mDelayEightFeedbackSlider.setRange(delaySevenPanParameter->range.start, delaySevenPanParameter->range.end);
+    mDelaySevenPanSlider.setValue(*delaySevenPanParameter);
+    addAndMakeVisible(mDelaySevenPanSlider);
+    mDelaySevenPanSlider.onValueChange = [this, delaySevenPanParameter] { *delaySevenPanParameter = mDelaySevenPanSlider.getValue(); };
+    mDelaySevenPanSlider.onDragStart = [delaySevenPanParameter] {delaySevenPanParameter->beginChangeGesture(); };
+    mDelaySevenPanSlider.onDragEnd = [delaySevenPanParameter] {delaySevenPanParameter->endChangeGesture(); };
+    
+    juce::AudioParameterFloat* delayEightPanParameter = (juce::AudioParameterFloat*)params.getUnchecked(51);
+    mDelayEightPanSlider.setBounds(1200, 480 , 150, 150);
+    mDelayEightPanSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
+    mDelayEightPanSlider.setTextBoxStyle(juce::Slider::TextBoxLeft, false, 75, 50);
+    mDelayEightPanSlider.setRange(delayEightPanParameter->range.start, delayEightPanParameter->range.end);
+    mDelayEightPanSlider.setValue(*delayEightPanParameter);
+    addAndMakeVisible(mDelayEightPanSlider);
+    mDelayEightPanSlider.onValueChange = [this, delayEightPanParameter] { *delayEightPanParameter = mDelayEightFeedbackSlider.getValue(); };
+    mDelayEightPanSlider.onDragStart = [delayEightPanParameter] {delayEightPanParameter->beginChangeGesture(); };
+    mDelayEightPanSlider.onDragEnd = [delayEightPanParameter] {delayEightPanParameter->endChangeGesture(); };
+    
 }
 
 WaylodelayUdAudioProcessorEditor::~WaylodelayUdAudioProcessorEditor()
@@ -802,6 +898,32 @@ void WaylodelayUdAudioProcessorEditor::setSliders(){
     juce::AudioParameterFloat* depth2 = (juce::AudioParameterFloat*)params2.getUnchecked(43);
     mDepthSlider.setValue(*depth2);
     
+    juce::AudioParameterFloat* delayOnePanParameter2 = (juce::AudioParameterFloat*)params2.getUnchecked(44);
+    mDelayOnePanSlider.setValue(*delayOnePanParameter2);
+    
+    juce::AudioParameterFloat* delaytwoPanParameter2 = (juce::AudioParameterFloat*)params2.getUnchecked(45);
+    mDelayTwoPanSlider.setValue(*delaytwoPanParameter2);
+    
+    juce::AudioParameterFloat* delayThreePanParameter2 = (juce::AudioParameterFloat*)params2.getUnchecked(46);
+    mDelayThreePanSlider.setValue(*delayThreePanParameter2);
+    
+    juce::AudioParameterFloat* delayFourPanParameter2 = (juce::AudioParameterFloat*)params2.getUnchecked(47);
+    mDelayFourPanSlider.setValue(*delayFourPanParameter2);
+    
+    juce::AudioParameterFloat* delayFivePanParameter2 = (juce::AudioParameterFloat*)params2.getUnchecked(48);
+    mDelayFivePanSlider.setValue(*delayFivePanParameter2);
+    
+    juce::AudioParameterFloat* delaySixPanParameter2 = (juce::AudioParameterFloat*)params2.getUnchecked(49);
+    mDelaySixPanSlider.setValue(*delaySixPanParameter2);
+    
+    juce::AudioParameterFloat* delaySevenPanParameter2 = (juce::AudioParameterFloat*)params2.getUnchecked(50);
+    mDelaySevenPanSlider.setValue(*delaySevenPanParameter2);
+    
+    juce::AudioParameterFloat* delayEightPanParameter2 = (juce::AudioParameterFloat*)params2.getUnchecked(51);
+    mDelayEightPanSlider.setValue(*delayEightPanParameter2);
+    
+    
+    
     
 }
 
@@ -862,6 +984,14 @@ void WaylodelayUdAudioProcessorEditor::setSliders(){
          mWetGainSlider.setValue(settingsArray[preset][41]);
          mDepthSlider.setValue(settingsArray[preset][42]);
          mRateSlider.setValue(settingsArray[preset][43]);
+         mDelayOnePanSlider.setValue(settingsArray[preset][44]);
+         mDelayTwoPanSlider.setValue(settingsArray[preset][45]);
+         mDelayThreePanSlider.setValue(settingsArray[preset][46]);
+         mDelayFourPanSlider.setValue(settingsArray[preset][47]);
+         mDelayFivePanSlider.setValue(settingsArray[preset][48]);
+         mDelaySixPanSlider.setValue(settingsArray[preset][49]);
+         mDelaySevenPanSlider.setValue(settingsArray[preset][50]);
+         mDelayEightPanSlider.setValue(settingsArray[preset][51]);
 
          
 }
