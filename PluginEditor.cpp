@@ -77,7 +77,7 @@ WaylodelayUdAudioProcessorEditor::WaylodelayUdAudioProcessorEditor (WaylodelayUd
     delaySettings.addItem ("233 legend echo 3", 27);
     delaySettings.addItem ("Waylochorus 1", 28);
     delaySettings.addItem ("Waylolead 1", 29);
-    //delaySettings.setSelectedId (1);
+    
     
     delaySettings.onChange = [this] { getPreset(); };
     
@@ -665,10 +665,13 @@ WaylodelayUdAudioProcessorEditor::WaylodelayUdAudioProcessorEditor (WaylodelayUd
     mDelayEightFeedbackSlider.setTextBoxStyle(juce::Slider::TextBoxLeft, false, 75, 50);
     mDelayEightFeedbackSlider.setRange(delayEightFeedbackParameter->range.start, delayEightFeedbackParameter->range.end);
     mDelayEightFeedbackSlider.setValue(*delayEightFeedbackParameter);
+    //mDelayEightFeedbackSlider.setValue(0.0f);
     addAndMakeVisible(mDelayEightFeedbackSlider);
     mDelayEightFeedbackSlider.onValueChange = [this, delayEightFeedbackParameter] { *delayEightFeedbackParameter = mDelayEightFeedbackSlider.getValue(); };
     mDelayEightFeedbackSlider.onDragStart = [delayEightFeedbackParameter] {delayEightFeedbackParameter->beginChangeGesture(); };
     mDelayEightFeedbackSlider.onDragEnd = [delayEightFeedbackParameter] {delayEightFeedbackParameter->endChangeGesture(); };
+    
+    
     
     juce::AudioParameterFloat* delayOnePanParameter = (juce::AudioParameterFloat*)params.getUnchecked(44);
     mDelayOnePanSlider.setBounds(150, 480 , 150, 150);
@@ -758,6 +761,9 @@ WaylodelayUdAudioProcessorEditor::WaylodelayUdAudioProcessorEditor (WaylodelayUd
     mDelayEightPanSlider.onValueChange = [this, delayEightPanParameter] { *delayEightPanParameter = mDelayEightPanSlider.getValue(); };
     mDelayEightPanSlider.onDragStart = [delayEightPanParameter] {delayEightPanParameter->beginChangeGesture(); };
     mDelayEightPanSlider.onDragEnd = [delayEightPanParameter] {delayEightPanParameter->endChangeGesture(); };
+    
+    
+    mDelayEightFeedbackSlider.setValue(0.0f);
     
 }
 
@@ -886,6 +892,7 @@ void WaylodelayUdAudioProcessorEditor::setSliders(){
     mDelayEightModDepthSlider.setValue(*delayEightModDpethParameter2);
     juce::AudioParameterFloat* delayEightModRateParameter2 = (juce::AudioParameterFloat*)params2.getUnchecked(39);
     mDelayEightModRateSlider.setValue(*delayEightModRateParameter2);
+    
     juce::AudioParameterFloat* delayEightFeedbackParameter2 = (juce::AudioParameterFloat*)params2.getUnchecked(40);
     mDelayEightFeedbackSlider.setValue(*delayEightFeedbackParameter2);
     

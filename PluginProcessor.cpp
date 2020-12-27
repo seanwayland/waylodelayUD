@@ -130,6 +130,8 @@ WaylodelayUdAudioProcessor::WaylodelayUdAudioProcessor()
     
     mLFOrate = mLFOrateTwo= mLFOrateThree = mLFOrateFour = mLFOrateFive = mLFOrateSix = mLFOrateSeven = mLFOrateEight = 0.3f;
     
+    
+    
 }
 
 WaylodelayUdAudioProcessor::~WaylodelayUdAudioProcessor()
@@ -209,6 +211,8 @@ void WaylodelayUdAudioProcessor::prepareToPlay (double sampleRate, int samplesPe
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
+    
+    
     
     mLFOphase = mLFOphaseTwo = mLFOphaseThree = mLFOphaseFour =  mLFOphaseFive =  mLFOphaseSix = mLFOphaseSeven = mLFOphaseEight = 0;
 
