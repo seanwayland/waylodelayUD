@@ -40,7 +40,7 @@ WaylodelayUdAudioProcessorEditor::WaylodelayUdAudioProcessorEditor (WaylodelayUd
     Timer::startTimerHz(5);
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setSize (1500,800);
+    setSize (1500,1200);
     auto& params = processor.getParameters();
     
 
@@ -158,7 +158,6 @@ WaylodelayUdAudioProcessorEditor::WaylodelayUdAudioProcessorEditor (WaylodelayUd
     mDepthSlider.onValueChange = [this, depthParameter] { *depthParameter = mDepthSlider.getValue(); };
     mDepthSlider.onDragStart = [depthParameter] {depthParameter->beginChangeGesture(); };
     mDepthSlider.onDragEnd = [depthParameter] {depthParameter->endChangeGesture(); };
-    
     
     TitleLabel.setBounds(600,550,300,300);
     TitleLabel.setText("WAYLOMOD UD 2.0", juce::dontSendNotification);
@@ -741,7 +740,8 @@ WaylodelayUdAudioProcessorEditor::WaylodelayUdAudioProcessorEditor (WaylodelayUd
     mDelaySevenPanSlider.setBounds(1050, 480 , 150, 150);
     mDelaySevenPanSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
     mDelaySevenPanSlider.setTextBoxStyle(juce::Slider::TextBoxLeft, false, 75, 50);
-    mDelayEightFeedbackSlider.setRange(delaySevenPanParameter->range.start, delaySevenPanParameter->range.end);
+    mDelaySevenFeedbackSlider.setRange(delaySevenPanParameter->range.start, delaySevenPanParameter->range.end);
+    mDelaySevenPanSlider.setRange(delaySevenPanParameter->range.start, delaySevenPanParameter->range.end);
     mDelaySevenPanSlider.setValue(*delaySevenPanParameter);
     addAndMakeVisible(mDelaySevenPanSlider);
     mDelaySevenPanSlider.onValueChange = [this, delaySevenPanParameter] { *delaySevenPanParameter = mDelaySevenPanSlider.getValue(); };
@@ -755,7 +755,7 @@ WaylodelayUdAudioProcessorEditor::WaylodelayUdAudioProcessorEditor (WaylodelayUd
     mDelayEightPanSlider.setRange(delayEightPanParameter->range.start, delayEightPanParameter->range.end);
     mDelayEightPanSlider.setValue(*delayEightPanParameter);
     addAndMakeVisible(mDelayEightPanSlider);
-    mDelayEightPanSlider.onValueChange = [this, delayEightPanParameter] { *delayEightPanParameter = mDelayEightFeedbackSlider.getValue(); };
+    mDelayEightPanSlider.onValueChange = [this, delayEightPanParameter] { *delayEightPanParameter = mDelayEightPanSlider.getValue(); };
     mDelayEightPanSlider.onDragStart = [delayEightPanParameter] {delayEightPanParameter->beginChangeGesture(); };
     mDelayEightPanSlider.onDragEnd = [delayEightPanParameter] {delayEightPanParameter->endChangeGesture(); };
     

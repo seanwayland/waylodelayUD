@@ -309,4 +309,32 @@ private:
     
     float mfeedbackLeftEight;
     float mfeedbackRightEight;
+    
+    float panLevelOne;
+    float panLevelTwo;
+    float panLevelThree;
+    float panLevelFour;
+    float panLevelFive;
+    float panLevelSix;
+    float panLevelSeven;
+    float panLevelEight;
+    
+    float panOneL;
+    float panOneR;
+    float panTwoL;
+    float panTwoR;
+    float panThreeL;
+    float panThreeR;
+    float panFourL;
+    float panFourR;
+    float panFiveL;
+    float panFiveR;
+    float panSixL;
+    float panSixR;
+    float panSevenL;
+    float panSevenR;
+    float panEightL;
+    float panEightR;
+    
+    
 };
