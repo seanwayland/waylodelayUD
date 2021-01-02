@@ -40,11 +40,8 @@ WaylodelayUdAudioProcessorEditor::WaylodelayUdAudioProcessorEditor (WaylodelayUd
     Timer::startTimerHz(5);
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setSize (1500,1200);
+    setSize (1400,800);
     auto& params = processor.getParameters();
-    
-
-    
     
     addAndMakeVisible (delaySettings);
     delaySettings.setBounds(1000,50, 200,50);
